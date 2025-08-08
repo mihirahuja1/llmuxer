@@ -1,0 +1,35 @@
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+
+# Documentation and notes
+SMART_MODEL_SEARCH_STRATEGIES.md
+
+# Data files that might contain API keys or sensitive info
+data/golden_jobs_with_baseline.jsonl
+
+# Logs
+*.log
