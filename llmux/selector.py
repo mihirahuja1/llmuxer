@@ -1,6 +1,7 @@
 """Selector module for choosing best performing model."""
 
 import time
+import threading
 from typing import List, Dict, Any, Optional, Tuple
 from .provider import Provider, get_provider
 from .evaluator import Evaluator
@@ -20,18 +21,16 @@ class Selector:
         self.models = models
         self.results = {}
         
-    def run_evaluation(self, dataset_path: str, system_prompt: str = "") -> Dict[str, Any]:
-        """Run evaluation on all models."""
-        print(f"\nStarting evaluation of {len(self.models)} models...")
-        print("=" * 80)
+    def run_evaluation(self, dataset_path: str, system_prompt: str = "", task: Optional[str] = None, options: Optional[List] = None, model_costs: Optional[Dict] = None) -> Dict[str, Any]:
+        """Run evaluation on all models with simple progress updates."""
         
-        for i, config in enumerate(self.models, 1):
-            # Don't modify original config
+        for i, config in enumerate(self.models):
             config_copy = config.copy()
             provider_name = config_copy.pop('provider')
             model_name = config_copy.get('model', 'unknown')
+            short_name = model_name.split('/')[-1] if '/' in model_name else model_name
             
-            print(f"[{i}/{len(self.models)}] Testing {model_name}...")
+            print(f"  {short_name}: Testing... - Running")
             
             try:
                 provider = get_provider(provider_name, **config_copy)
@@ -39,7 +38,7 @@ class Selector:
                 dataset = evaluator.load_dataset(dataset_path)
                 
                 start_time = time.time()
-                accuracy, results = evaluator.evaluate(dataset, system_prompt)
+                accuracy, results = evaluator.evaluate(dataset, system_prompt, task, options)
                 elapsed = time.time() - start_time
                 
                 self.results[f"{provider_name}/{model_name}"] = {
@@ -50,26 +49,56 @@ class Selector:
                 }
                 
                 if accuracy is not None:
-                    print(f"COMPLETED: {accuracy:.1%} accuracy in {elapsed:.2f}s")
+                    print(f"     {short_name}: {accuracy:.1%} - Done ({elapsed:.1f}s)")
                 else:
-                    print(f"COMPLETED in {elapsed:.2f}s (no ground truth labels)")
-                print()
-                
+                    print(f"     {short_name}: No labels - Done ({elapsed:.1f}s)")
+                    
             except Exception as e:
                 error_msg = str(e)
                 if "429" in error_msg:
-                    print(f"\r   SKIPPED: Rate limited")
+                    print(f"     {short_name}: Rate limited - Skipped")
                 elif "404" in error_msg:
-                    print(f"\r   SKIPPED: Model not found")
+                    print(f"     {short_name}: Not found - Skipped")
                 else:
-                    print(f"\r   ERROR: {error_msg}")
-                print()
+                    print(f"     {short_name}: Error - Failed")
+                
                 self.results[f"{provider_name}/{model_name}"] = {
                     'error': str(e),
                     'config': {'provider': provider_name, **config_copy}
                 }
         
         return self.results
+    
+    def _create_progress_table(self, model_costs: Optional[Dict] = None):
+        """Create the initial progress table."""
+        print("\n" + "+" + "-"*30 + "+" + "-"*15 + "+" + "-"*15 + "+" + "-"*16 + "+")
+        print(f"| {'Model':<28} | {'Cost/M tokens':<13} | {'Accuracy':<13} | {'Status':<14} |")
+        print("+" + "-"*30 + "+" + "-"*15 + "+" + "-"*15 + "+" + "-"*16 + "+")
+        
+        # Pre-populate rows for each model
+        for config in self.models:
+            model_name = config.get('model', 'unknown')
+            short_name = model_name.split('/')[-1] if '/' in model_name else model_name
+            
+            # Get cost info if available
+            cost_display = '$--.---'
+            if model_costs and model_name in model_costs:
+                pricing = model_costs[model_name]
+                total_cost = pricing['input'] + pricing['output']
+                cost_display = f'${total_cost:.3f}'
+            
+            print(f"| {short_name[:28]:<28} | {cost_display:<13} | {'Pending...':<13} | {'Waiting':<14} |")
+        
+        print("+" + "-"*30 + "+" + "-"*15 + "+" + "-"*15 + "+" + "-"*16 + "+")
+    
+    def _update_progress_row(self, _row_index: int, model_name: str, accuracy: str, status: str):
+        """Update a specific row in the progress table."""
+        # For now, just print a simple status line instead of cursor manipulation
+        print(f"  {model_name}: {accuracy} - {status}")
+    
+    def _close_progress_table(self):
+        """Add final line to close the table."""
+        print()  # Ensure we're on a new line
     
     def get_best_model(self) -> Optional[Tuple[str, Dict[str, Any]]]:
         """Get the best performing model."""

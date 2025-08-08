@@ -1,25 +1,75 @@
 #!/usr/bin/env python3
-"""Dead simple usage of LLMux - one line to optimize your costs."""
+"""Simple LLMux usage example."""
 
 import llmux
 
-# That's it! One line to find the best model for your task
+print("Finding cheaper model than gpt-4...")
+
+# Super simple - just baseline and dataset, everything else is auto-detected
 result = llmux.optimize_cost(
-    base_model="openai/gpt-4",
-    prompt="Classify if this job posting is relevant for a Python/Rust Software Architect in SF Bay Area",
-    golden_dataset="data/golden_jobs_with_baseline.jsonl",
+    baseline="gpt-4", 
+    dataset="data/golden_jobs_with_baseline.jsonl",
+    min_accuracy=0.7
 )
 
-print(f"Best model: {result['model']}")
-print(f"Cost: ${result['cost_per_million']:.2f} per million tokens") 
-if result.get('accuracy') is not None:
+if 'error' in result:
+    print(f"Error: {result['error']}")
+else:
+    print(f"\nBest model: {result['model']}")
     print(f"Accuracy: {result['accuracy']:.1%}")
+    
+    if result.get('cost_savings'):
+        savings_pct = result['cost_savings'] * 100
+        cost_per_m = result['cost_per_million']
+        print(f"Cost savings: {savings_pct:.1f}% (${cost_per_m:.2f}/M tokens)")
+        print(f"Why picked: Best cost-efficiency ratio (accuracy/cost)")
+    else:
+        cost_per_m = result.get('cost_per_million', 0)
+        print(f"Cost: ${cost_per_m:.2f} per million tokens")
+    
+    if result.get('below_threshold'):
+        print(f"Note: Accuracy {result['accuracy']:.1%} is below target {result['threshold']:.0%}")
 
-# Or optimize for speed instead of cost
-fast_result = llmux.optimize_speed(
-    prompt="Classify if this job posting is relevant for a Python/Rust Software Architect in SF Bay Area",
-    golden_dataset="data/golden_jobs.jsonl",
-)
+# # === More Examples (Commented Out) ===
 
-print(f"\nFastest model: {fast_result['model']}")
-print(f"Latency: {fast_result['latency']:.2f}s")
+# # Classification with explicit success criteria
+# sentiment_examples = [
+#     {"input": "I love this product!", "ground_truth": "positive"},
+#     {"input": "It's okay, nothing special", "ground_truth": "neutral"},
+#     {"input": "Terrible quality, would not recommend", "ground_truth": "negative"},
+# ]
+# result = llmux.optimize_cost(
+#     baseline="gpt-4",
+#     examples=sentiment_examples,
+#     task="classification",
+#     options=["positive", "negative", "neutral"]
+# )
+
+# # Extraction task
+# name_examples = [
+#     {"input": "Hi, I'm John Smith from Google", "ground_truth": "John Smith"},
+#     {"input": "Sarah Johnson will be joining us", "ground_truth": "Sarah Johnson"},
+#     {"input": "The meeting is at 3pm", "ground_truth": None},
+# ]
+# result = llmux.optimize_cost(
+#     baseline="gpt-4",
+#     examples=name_examples,
+#     task="extraction",
+#     extract="person_name"
+# )
+
+# # CSV support
+# result = llmux.optimize_cost(
+#     baseline="gpt-4",
+#     dataset="reviews.csv",
+#     task="classification",
+#     options=["positive", "negative", "neutral"]
+# )
+
+# # HuggingFace dataset
+# result = llmux.optimize_cost(
+#     baseline="gpt-4",
+#     dataset="imdb:test[:100]",
+#     task="binary",
+#     options=["positive", "negative"]
+# )

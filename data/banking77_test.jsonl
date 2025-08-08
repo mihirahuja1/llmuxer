@@ -1,0 +1,100 @@
+{"input": "How do I locate my card?", "label": 11, "LLM_Decision": null}
+{"input": "I still have not received my new card, I ordered over a week ago.", "label": 11, "LLM_Decision": null}
+{"input": "I ordered a card but it has not arrived. Help please!", "label": 11, "LLM_Decision": null}
+{"input": "Is there a way to know when my card will arrive?", "label": 11, "LLM_Decision": null}
+{"input": "My card has not arrived yet.", "label": 11, "LLM_Decision": null}
+{"input": "When will I get my card?", "label": 11, "LLM_Decision": null}
+{"input": "Do you know if there is a tracking number for the new card you sent me?", "label": 11, "LLM_Decision": null}
+{"input": "i have not received my card", "label": 11, "LLM_Decision": null}
+{"input": "still waiting on that card", "label": 11, "LLM_Decision": null}
+{"input": "Is it normal to have to wait over a week for my new card?", "label": 11, "LLM_Decision": null}
+{"input": "How do I track my card?", "label": 11, "LLM_Decision": null}
+{"input": "How long does a card delivery take?", "label": 11, "LLM_Decision": null}
+{"input": "I still don't have my card after 2 weeks.  What should I do?", "label": 11, "LLM_Decision": null}
+{"input": "still waiting on my new card", "label": 11, "LLM_Decision": null}
+{"input": "I am still waiting for my card after 1 week.  Is this ok?", "label": 11, "LLM_Decision": null}
+{"input": "I have been waiting longer than expected for my bank card, could you provide information on when it will arrive?", "label": 11, "LLM_Decision": null}
+{"input": "I've been waiting longer than expected for my card.", "label": 11, "LLM_Decision": null}
+{"input": "Why hasn't my card been delivered?", "label": 11, "LLM_Decision": null}
+{"input": "Where is my new card? I have been waiting a week!", "label": 11, "LLM_Decision": null}
+{"input": "My card still hasn't arrived after 2 weeks. Is it lost?", "label": 11, "LLM_Decision": null}
+{"input": "I did not get my card yet, is it lost?", "label": 11, "LLM_Decision": null}
+{"input": "Status of the card I ordered.", "label": 11, "LLM_Decision": null}
+{"input": "How long should my new card take to arrive?", "label": 11, "LLM_Decision": null}
+{"input": "I ordered my card 2 weeks ago and it still isn't here? What do I do?", "label": 11, "LLM_Decision": null}
+{"input": "My card has not arrived yet, where is it?", "label": 11, "LLM_Decision": null}
+{"input": "What is the tracking number for my card that was mailed?", "label": 11, "LLM_Decision": null}
+{"input": "I think something went wrong with my card delivery as I haven't received it yet.", "label": 11, "LLM_Decision": null}
+{"input": "I'm still waiting for delivery of my new card, why is it taking so long?", "label": 11, "LLM_Decision": null}
+{"input": "I ordered a card a week ago, and it's still not here. What do I do?", "label": 11, "LLM_Decision": null}
+{"input": "i want to track the card you sent", "label": 11, "LLM_Decision": null}
+{"input": "My card hasn't arrived yet.", "label": 11, "LLM_Decision": null}
+{"input": "I was expecting my new card and am wondering why I haven't received it yet?", "label": 11, "LLM_Decision": null}
+{"input": "How do I know when my card will arrive?", "label": 11, "LLM_Decision": null}
+{"input": "I'm still waiting on my card to be delivered.", "label": 11, "LLM_Decision": null}
+{"input": "Does the card you sent have a way to track to it?", "label": 11, "LLM_Decision": null}
+{"input": "I ordered a card and I still haven't received it. It's been two weeks. What can I do?", "label": 11, "LLM_Decision": null}
+{"input": "I'm starting to think my card is lost because it still hasn't arrived, can you help?", "label": 11, "LLM_Decision": null}
+{"input": "Is there tracking info available?", "label": 11, "LLM_Decision": null}
+{"input": "What is the tracking number for the card you sent?", "label": 11, "LLM_Decision": null}
+{"input": "Where is the tracking number for the card you sent me?", "label": 11, "LLM_Decision": null}
+{"input": "Why won't my card show up on the app?", "label": 13, "LLM_Decision": null}
+{"input": "I would like to reactivate my card.", "label": 13, "LLM_Decision": null}
+{"input": "Where do I link the new card?", "label": 13, "LLM_Decision": null}
+{"input": "I have received my card, can you help me put it in the app?", "label": 13, "LLM_Decision": null}
+{"input": "How do I link a card that I already have?", "label": 13, "LLM_Decision": null}
+{"input": "I received my new card, but I don't see it in the app anywhere.  What do I do?", "label": 13, "LLM_Decision": null}
+{"input": "How do I re-add a card to the app?", "label": 13, "LLM_Decision": null}
+{"input": "How do I add the card to my account?", "label": 13, "LLM_Decision": null}
+{"input": "Can I put my old card back into the system? I just found it/", "label": 13, "LLM_Decision": null}
+{"input": "I have one of your cards already, how do I link it?", "label": 13, "LLM_Decision": null}
+{"input": "How do I link a new card?", "label": 13, "LLM_Decision": null}
+{"input": "Can I link an existing card?", "label": 13, "LLM_Decision": null}
+{"input": "How do I link one your card if I have one already?", "label": 13, "LLM_Decision": null}
+{"input": "How do I add a card to the app?", "label": 13, "LLM_Decision": null}
+{"input": "Can I link my new card?", "label": 13, "LLM_Decision": null}
+{"input": "Hello, I found the card I misplaced and I need to reactive it, how do I do that?", "label": 13, "LLM_Decision": null}
+{"input": "Can you tell me how to link one of your cards that I already have?", "label": 13, "LLM_Decision": null}
+{"input": "How do I view the card I received in the app?", "label": 13, "LLM_Decision": null}
+{"input": "Where on the website do I go to link my card?", "label": 13, "LLM_Decision": null}
+{"input": "I found my card, can I add it to the app?", "label": 13, "LLM_Decision": null}
+{"input": "How do I link to my credit card with you?", "label": 13, "LLM_Decision": null}
+{"input": "I've received my card so now I need to know how to sync it to the app.", "label": 13, "LLM_Decision": null}
+{"input": "I found my card, I would like to reactivate it.", "label": 13, "LLM_Decision": null}
+{"input": "How do I link this new card?", "label": 13, "LLM_Decision": null}
+{"input": "Can I reactivate my lost card that I found this morning in my jacket pocket?", "label": 13, "LLM_Decision": null}
+{"input": "how do I link an already existing card?", "label": 13, "LLM_Decision": null}
+{"input": "The app doesn't show the card I received.", "label": 13, "LLM_Decision": null}
+{"input": "how do I link a card I already have?", "label": 13, "LLM_Decision": null}
+{"input": "I would like to link my card. How do I do it?", "label": 13, "LLM_Decision": null}
+{"input": "Can you please show me where I can find the location to link my card?", "label": 13, "LLM_Decision": null}
+{"input": "Where do I go if I want to link my new card?", "label": 13, "LLM_Decision": null}
+{"input": "Is there a way to make my old card usable with the app?", "label": 13, "LLM_Decision": null}
+{"input": "Can I reactivate a card I thought I lost?", "label": 13, "LLM_Decision": null}
+{"input": "How do I link my card", "label": 13, "LLM_Decision": null}
+{"input": "Where do I need to go in the app to enter my card info?", "label": 13, "LLM_Decision": null}
+{"input": "I have found my lost or stolen card. Is there a way I can link the card with my account through my app again?", "label": 13, "LLM_Decision": null}
+{"input": "Could you help me reactivate my card? It was previously lost, but I found it this morning in my jacket.", "label": 13, "LLM_Decision": null}
+{"input": "I already have one of your cards, how do I link them?", "label": 13, "LLM_Decision": null}
+{"input": "How do I link my replacement card?", "label": 13, "LLM_Decision": null}
+{"input": "Can I link another card to my account?", "label": 13, "LLM_Decision": null}
+{"input": "I need to know your exchange rates.", "label": 32, "LLM_Decision": null}
+{"input": "What exchange rates do you offer?", "label": 32, "LLM_Decision": null}
+{"input": "How did you come up with your exchange rates?", "label": 32, "LLM_Decision": null}
+{"input": "Where do you guys acquire your exchange rate?", "label": 32, "LLM_Decision": null}
+{"input": "How do I find the exchange rate?", "label": 32, "LLM_Decision": null}
+{"input": "What are your international exchange rates?", "label": 32, "LLM_Decision": null}
+{"input": "How often do your exchange rates change", "label": 32, "LLM_Decision": null}
+{"input": "Please advise what is the exchange rate", "label": 32, "LLM_Decision": null}
+{"input": "How are exchange rates calculated?", "label": 32, "LLM_Decision": null}
+{"input": "what are exchange rates based on", "label": 32, "LLM_Decision": null}
+{"input": "what are exchange rates", "label": 32, "LLM_Decision": null}
+{"input": "What are the most current exchange rates?", "label": 32, "LLM_Decision": null}
+{"input": "Can you explain your exchange rate policy to me?", "label": 32, "LLM_Decision": null}
+{"input": "Is it a good time to exchange?", "label": 32, "LLM_Decision": null}
+{"input": "What is the exchange rate like on this app?", "label": 32, "LLM_Decision": null}
+{"input": "Do you have a list of exchange rates?", "label": 32, "LLM_Decision": null}
+{"input": "Can you tell me where you get your exchange rates?", "label": 32, "LLM_Decision": null}
+{"input": "Will I get a curreng foreign exchange rate?", "label": 32, "LLM_Decision": null}
+{"input": "What currencies is an exchange rate calculated in?", "label": 32, "LLM_Decision": null}
+{"input": "Where do you get your exchange rates from?", "label": 32, "LLM_Decision": null}

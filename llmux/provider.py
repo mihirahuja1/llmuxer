@@ -40,6 +40,7 @@ class OpenRouterProvider(Provider):
         data = {
             "model": self.model,
             "messages": [{"role": "user", "content": prompt}],
+            "temperature": 0,  # Make responses deterministic
             **kwargs
         }
         
@@ -91,6 +92,7 @@ class OpenAIProvider(Provider):
         response = client.chat.completions.create(
             model=self.model,
             messages=[{"role": "user", "content": prompt}],
+            temperature=0,  # Make responses deterministic
             **kwargs
         )
         return response.choices[0].message.content
@@ -110,6 +112,7 @@ class AnthropicProvider(Provider):
             model=self.model,
             max_tokens=1024,
             messages=[{"role": "user", "content": prompt}],
+            temperature=0,  # Make responses deterministic
             **kwargs
         )
         return response.content[0].text

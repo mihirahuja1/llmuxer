@@ -3,7 +3,8 @@
 import json
 import time
 import threading
-from typing import List, Dict, Any, Tuple
+from typing import List, Dict, Any, Tuple, Optional
+from difflib import get_close_matches
 from .provider import Provider
 
 
@@ -37,11 +38,11 @@ class Evaluator:
             time.sleep(0.1)
             i += 1
     
-    def evaluate(self, dataset: List[Dict[str, Any]], system_prompt: str = "") -> Tuple[float, List[Dict]]:
-        """Evaluate model on dataset, returns accuracy and updated results.
+    def evaluate(self, dataset: List[Dict[str, Any]], system_prompt: str = "", task: Optional[str] = None, options: Optional[List] = None) -> Tuple[float, List[Dict]]:
+        """Evaluate model on dataset with task-specific logic and fuzzy matching.
         
         Updates each item with LLM_Decision field.
-        If Human_Input is provided, calculates accuracy against it.
+        If Human_Input/ground_truth is provided, calculates accuracy against it.
         """
         correct = 0
         total_with_labels = 0
@@ -56,22 +57,23 @@ class Evaluator:
         spinner_thread.daemon = True
         spinner_thread.start()
         
-        for idx, item in enumerate(dataset):            
-            # Build prompt with the input field
-            full_prompt = f"{system_prompt}\n\n{item['input']}\n\nRespond with only '1' to Apply or '0' to Skip."
+        for item in dataset:            
+            # Use the provided system prompt (already task-specific)
+            full_prompt = f"{system_prompt}\n\n{item['input']}"
             response = self.provider.complete(full_prompt).strip()
             
-            # Extract 0 or 1 from response
-            prediction = 1 if '1' in response else 0
+            # Parse response based on task type
+            prediction = self._parse_response(response, task, options)
             
             # Update the item with LLM decision
             item_result = item.copy()
             item_result['LLM_Decision'] = prediction
             
-            # If Human_Input exists and is not null, check accuracy
-            if item.get('Human_Input') is not None:
+            # Check accuracy against ground truth
+            ground_truth = item.get('Human_Input') or item.get('ground_truth')
+            if ground_truth is not None:
                 total_with_labels += 1
-                if prediction == item['Human_Input']:
+                if self._evaluate_with_fuzzy_matching(prediction, ground_truth, options):
                     correct += 1
             
             results.append(item_result)
@@ -82,18 +84,80 @@ class Evaluator:
             spinner_thread.join(timeout=0.2)
         print("\r   ", end="")  # Clear spinner line
                 
-        # Calculate accuracy only if we have labeled data
+        # Calculate accuracy
         accuracy = correct / total_with_labels if total_with_labels > 0 else None
         
-        # Calculate overall accuracy from LLM_Decision vs Human_Input
-        llm_correct = 0
-        total_decisions = 0
-        for result in results:
-            if result.get('LLM_Decision') is not None and result.get('Human_Input') is not None:
-                total_decisions += 1
-                if result['LLM_Decision'] == result['Human_Input']:
-                    llm_correct += 1
+        return accuracy, results
+    
+    def _parse_response(self, response: str, task: Optional[str], options: Optional[List]) -> Any:
+        """Parse LLM response based on task type."""
+        response_clean = response.strip()
         
-        overall_accuracy = llm_correct / total_decisions if total_decisions > 0 else None
+        # For binary tasks, extract 0/1 or boolean
+        if task == "binary":
+            response_lower = response_clean.lower()
+            if '1' in response_clean or 'true' in response_lower or 'yes' in response_lower:
+                return 1
+            elif '0' in response_clean or 'false' in response_lower or 'no' in response_lower:
+                return 0
+            # Try to match against provided options
+            if options:
+                for opt in options:
+                    if str(opt).lower() in response_lower:
+                        return opt
+            return 0  # Default to 0 if unclear
         
-        return overall_accuracy, results
+        # For classification, try to match against valid options
+        elif task == "classification" and options:
+            response_lower = response_clean.lower()
+            # First try exact matches
+            for opt in options:
+                if str(opt).lower() == response_lower:
+                    return opt
+            # Then try substring matches
+            for opt in options:
+                if str(opt).lower() in response_lower:
+                    return opt
+            # Fuzzy matching as last resort
+            options_lower = [str(opt).lower() for opt in options]
+            close_matches = get_close_matches(response_lower, options_lower, n=1, cutoff=0.7)
+            if close_matches:
+                # Return the original case option
+                match_idx = options_lower.index(close_matches[0])
+                return options[match_idx]
+            return response_clean  # Return as-is if no match
+        
+        # For extraction tasks, return cleaned response
+        elif task == "extraction":
+            if response_clean.lower() in ['none', 'null', 'n/a', 'not found']:
+                return None
+            return response_clean
+        
+        # Default: return cleaned response
+        return response_clean
+    
+    def _evaluate_with_fuzzy_matching(self, prediction: Any, ground_truth: Any, options: Optional[List]) -> bool:
+        """Evaluate prediction against ground truth with fuzzy matching."""
+        pred_str = str(prediction).strip().lower() if prediction is not None else ""
+        gt_str = str(ground_truth).strip().lower() if ground_truth is not None else ""
+        
+        # Exact match
+        if pred_str == gt_str:
+            return True
+        
+        # If options provided, both prediction and ground truth should be in options
+        if options:
+            options_lower = [str(opt).lower() for opt in options]
+            pred_in_options = pred_str in options_lower
+            gt_in_options = gt_str in options_lower
+            
+            if pred_in_options and gt_in_options:
+                return pred_str == gt_str
+            
+            # If prediction is close to an option, use that for comparison
+            if not pred_in_options:
+                close_matches = get_close_matches(pred_str, options_lower, n=1, cutoff=0.8)
+                if close_matches:
+                    return close_matches[0] == gt_str
+        
+        return False
