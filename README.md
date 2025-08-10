@@ -3,16 +3,16 @@
 [![PyPI version](https://badge.fury.io/py/llmuxer.svg)](https://pypi.org/project/llmuxer/)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![CI Tests](https://github.com/mihirahuja/llmuxer/workflows/CI/badge.svg)](https://github.com/mihirahuja/llmuxer/actions)
-[![Coverage](https://codecov.io/gh/mihirahuja/llmuxer/branch/main/graph/badge.svg)](https://codecov.io/gh/mihirahuja/llmuxer)
+[![CI Tests](https://github.com/mihirahuja1/llmuxer/workflows/CI/badge.svg)](https://github.com/mihirahuja1/llmuxer/actions)
+[![Coverage](https://codecov.io/gh/mihirahuja1/llmuxer/branch/main/graph/badge.svg)](https://codecov.io/gh/mihirahuja1/llmuxer)
 [![Downloads](https://pepy.tech/badge/llmuxer)](https://pepy.tech/project/llmuxer)
-[![GitHub Stars](https://img.shields.io/github/stars/mihirahuja/llmuxer)](https://github.com/mihirahuja/llmuxer/stargazers)
+[![GitHub Stars](https://img.shields.io/github/stars/mihirahuja1/llmuxer)](https://github.com/mihirahuja1/llmuxer/stargazers)
 
 **Find the cheapest LLM that meets your quality bar** *(Currently supports classification tasks only)*
 
 ## Quick Start
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mihirahuja/llmuxer/blob/main/examples/quickstart.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mihirahuja1/llmuxer/blob/main/examples/quickstart.ipynb)
 
 ```python
 import llmuxer
@@ -234,10 +234,10 @@ For a dataset with 1,000 samples:
 ## Links
 
 - [PyPI Package](https://pypi.org/project/llmuxer/)
-- [GitHub Repository](https://github.com/mihirahuja/llmuxer)
+- [GitHub Repository](https://github.com/mihirahuja1/llmuxer)
 - [OpenRouter API Keys](https://openrouter.ai/keys)
-- [Full Documentation](https://github.com/mihirahuja/llmuxer/tree/main/docs)
-- [Roadmap](https://github.com/mihirahuja/llmuxer/blob/main/ROADMAP.md)
+- [Full Documentation](https://github.com/mihirahuja1/llmuxer/tree/main/docs)
+- [Roadmap](https://github.com/mihirahuja1/llmuxer/blob/main/ROADMAP.md)
 
 ## License
 
@@ -245,5 +245,5 @@ MIT - see [LICENSE](LICENSE) file.
 
 ## Support
 
-- Issues: [GitHub Issues](https://github.com/mihirahuja/llmuxer/issues)
+- Issues: [GitHub Issues](https://github.com/mihirahuja1/llmuxer/issues)
 - Email: mihirahuja09@gmail.com

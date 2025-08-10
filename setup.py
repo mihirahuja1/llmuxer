@@ -11,7 +11,7 @@ setup(
     description="Automatically find cheaper LLM alternatives while maintaining performance",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/mihirahuja/llmuxer",
+    url="https://github.com/mihirahuja1/llmuxer",
     packages=find_packages(exclude=["tests*", "docs*", "examples*"]),
     classifiers=[
         "Development Status :: 4 - Beta",

@@ -48,7 +48,7 @@ If you find a bug or have a feature request, please open an issue on GitHub:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/mihirahuja/llmuxer.git
+   git clone https://github.com/mihirahuja1/llmuxer.git
    cd llmuxer
    ```
 

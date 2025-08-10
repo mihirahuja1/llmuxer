@@ -51,4 +51,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - No caching of evaluations yet
 - Limited to accuracy metric (F1, precision, recall coming soon)
 
-[0.1.0]: https://github.com/mihirahuja/llmuxer/releases/tag/v0.1.0
+[0.1.0]: https://github.com/mihirahuja1/llmuxer/releases/tag/v0.1.0
