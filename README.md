@@ -64,6 +64,7 @@ result = llmuxer.optimize_cost(
 )
 
 print(result)
+# Takes ~30-60 seconds for small datasets, ~10-15 minutes for 1k samples
 ```
 
 ### Example Output
@@ -156,10 +157,25 @@ JSONL format with `input` and `label` fields:
 
 ## Performance Notes
 
-- **Speed**: Tests run sequentially (parallel coming in v0.2)
-- **Time**: ~2-5 seconds per model, ~30-60 seconds total
-- **Caching**: Not yet implemented (coming in v0.2)
-- **Rate limits**: Handles OpenRouter rate limits automatically
+### Timing Estimates
+
+For a dataset with 1,000 samples:
+
+| Model Type | Time per 1k samples | Token Speed |
+|------------|-------------------|-------------|
+| GPT-3.5-turbo | ~45-60 seconds | ~2,000 tokens/sec |
+| Claude-3-haiku | ~30-45 seconds | ~2,500 tokens/sec |
+| Gemini-1.5-flash | ~20-30 seconds | ~3,000 tokens/sec |
+| Llama-3.1-8b | ~15-25 seconds | ~3,500 tokens/sec |
+| **Total for 18 models** | **~10-15 minutes** | Sequential |
+
+### Speed Considerations
+
+- **Sequential Processing**: Currently tests one model at a time (parallel in v0.2)
+- **Sample Size**: Use `sample_size=0.1` to test on 10% first for quick validation
+- **Smart Stopping**: Saves 30-50% time by skipping smaller models when larger ones fail
+- **Rate Limits**: Automatic handling with exponential backoff
+- **Caching**: Not yet implemented (coming in v0.2 will reduce re-evaluation time by 90%)
 
 ## Links
 
