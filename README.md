@@ -79,15 +79,14 @@ result = llmuxer.optimize_cost(
 
 ### Model Universe
 
-Tests models from a curated universe including:
-- OpenAI (GPT-4, GPT-3.5)
-- Anthropic (Claude 3 Haiku, Sonnet)
-- Google (Gemini Pro, Flash)
-- Meta (Llama 3.1 8B, 70B)
-- Mistral (7B, Mixtral, Large)
-- Qwen (Qwen 2.5 7B, 32B, 72B)
-- DeepSeek (Chat, Coder)
-- And more...
+Tests models from a curated universe of 18 models:
+- **OpenAI** (2): GPT-4o-mini, GPT-3.5-turbo
+- **Anthropic** (2): Claude-3-haiku, Claude-3-sonnet
+- **Google** (3): Gemini-1.5-flash-8b, Gemini-1.5-flash, Gemini-1.5-pro
+- **Qwen** (3): Qwen-2.5-7b, Qwen-2.5-14b, Qwen-2.5-72b
+- **DeepSeek** (3): DeepSeek-chat, DeepSeek-coder, DeepSeek-v2.5
+- **Mistral** (3): Mistral-7b, Mixtral-8x7b, Mistral-large
+- **Meta** (2): Llama-3.1-8b, Llama-3.1-70b
 
 ## Examples
 
