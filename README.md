@@ -12,10 +12,19 @@ Automatically find cheaper LLM alternatives while maintaining performance.
 ```python
 import llmuxer
 
+# Sentiment analysis example
+examples = [
+    {"input": "This product is amazing!", "ground_truth": "positive"},
+    {"input": "Terrible service", "ground_truth": "negative"},
+    {"input": "It's okay", "ground_truth": "neutral"}
+]
+
 # Find the cheapest model that maintains your accuracy requirements
-result = llmux.optimize_cost(
+result = llmuxer.optimize_cost(
     baseline="gpt-4",
-    dataset="your_data.jsonl",
+    examples=examples,
+    task="classification",
+    options=["positive", "negative", "neutral"],
     min_accuracy=0.9
 )
 
@@ -47,13 +56,13 @@ pip install llmuxer
 import llmuxer
 
 # Basic usage
-result = llmux.optimize_cost(
+result = llmuxer.optimize_cost(
     baseline="gpt-4",
     dataset="data.jsonl"
 )
 
 # With custom parameters
-result = llmux.optimize_cost(
+result = llmuxer.optimize_cost(
     baseline="gpt-4",
     dataset="data.jsonl",
     prompt="Classify the sentiment as positive, negative, or neutral",
@@ -95,7 +104,7 @@ examples = [
     {"input": "It's okay", "ground_truth": "neutral"}
 ]
 
-result = llmux.optimize_cost(
+result = llmuxer.optimize_cost(
     baseline="gpt-4",
     examples=examples,
     task="classification",
@@ -114,7 +123,7 @@ from prepare_banking77 import prepare_banking77_dataset
 prepare_banking77_dataset()
 
 # Find optimal model
-result = llmux.optimize_cost(
+result = llmuxer.optimize_cost(
     baseline="gpt-4",
     dataset="data/banking77_test.jsonl",
     prompt="Classify the banking customer query into one of 77 intent categories",
@@ -221,6 +230,40 @@ If you use LLMuxer in your research, please cite:
   url = {https://github.com/mihirahuja/llmuxer}
 }
 ```
+
+## Product Roadmap
+
+### Current Features (v0.1.0)
+- ✅ Multi-provider model testing (OpenAI, Anthropic, Google, Meta, Mistral)
+- ✅ Classification, extraction, generation, and binary tasks
+- ✅ Smart stopping for model families
+- ✅ Cost comparison and savings calculation
+- ✅ Sample size control for faster testing
+- ✅ JSONL and CSV dataset support
+
+### Coming Soon (v0.2.0)
+- 🔄 **Async evaluation** - Test multiple models in parallel
+- 🔄 **Caching layer** - Reuse evaluations across runs
+- 🔄 **Custom evaluation metrics** - Beyond accuracy (F1, precision, recall)
+- 🔄 **Streaming support** - For generation tasks
+- 🔄 **Fine-tuning recommendations** - When to fine-tune vs use larger models
+
+### Future (v0.3.0+)
+- 📋 **Multi-step reasoning tasks** - Chain-of-thought optimization
+- 📋 **Automatic prompt optimization** - Find best prompt + model combination
+- 📋 **Cost alerts** - Notify when cheaper alternatives become available
+- 📋 **REST API** - Deploy as a service
+- 📋 **Web dashboard** - Visual model comparison and selection
+- 📋 **RAG optimization** - Optimize retrieval + generation pipelines
+- 📋 **Model versioning** - Track performance across model updates
+- 📋 **A/B testing framework** - Production model comparison
+
+### Enterprise Features (Planned)
+- 🏢 **Private model support** - Test your own deployed models
+- 🏢 **Compliance checks** - Ensure models meet regulatory requirements
+- 🏢 **SLA guarantees** - Latency and availability requirements
+- 🏢 **Budget management** - Team quotas and spending limits
+- 🏢 **Audit logs** - Track all optimization decisions
 
 ## Support
 
