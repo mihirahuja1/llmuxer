@@ -21,14 +21,44 @@ class Selector:
         self.models = models
         self.results = {}
         
-    def run_evaluation(self, dataset_path: str, system_prompt: str = "", task: Optional[str] = None, options: Optional[List] = None, model_costs: Optional[Dict] = None) -> Dict[str, Any]:
-        """Run evaluation on all models with simple progress updates."""
+    def run_evaluation(self, dataset_path: str, system_prompt: str = "", task: Optional[str] = None, options: Optional[List] = None, model_costs: Optional[Dict] = None, min_accuracy: float = 0.0) -> Dict[str, Any]:
+        """Run evaluation on all models with smart stopping for model families."""
+        
+        # Define model families (larger to smaller) for your universe
+        model_families = {
+            'openai': ['gpt-4o-mini', 'gpt-3.5-turbo'],
+            'anthropic': ['claude-3-sonnet', 'claude-3-haiku'],
+            'google': ['gemini-1.5-pro', 'gemini-1.5-flash', 'gemini-1.5-flash-8b'],
+            'qwen': ['qwen-2.5-72b', 'qwen-2.5-14b', 'qwen-2.5-7b'],
+            'deepseek': ['deepseek-v2.5', 'deepseek-coder', 'deepseek-chat'],
+            'mistral': ['mistral-large', 'mixtral-8x7b', 'mistral-7b'],
+            'llama': ['llama-3.1-70b', 'llama-3.1-8b']
+        }
+        
+        # Track failed families
+        failed_families = set()
         
         for i, config in enumerate(self.models):
             config_copy = config.copy()
             provider_name = config_copy.pop('provider')
             model_name = config_copy.get('model', 'unknown')
             short_name = model_name.split('/')[-1] if '/' in model_name else model_name
+            
+            # Check if this model belongs to a failed family
+            skip_model = False
+            for family, models in model_families.items():
+                if family in failed_families and any(m in short_name for m in models):
+                    print(f"  {short_name}: Skipped - larger model in family failed threshold")
+                    self.results[f"{provider_name}/{model_name}"] = {
+                        'skipped': True,
+                        'reason': 'larger_model_failed',
+                        'config': {'provider': provider_name, **config_copy}
+                    }
+                    skip_model = True
+                    break
+            
+            if skip_model:
+                continue
             
             print(f"  {short_name}: Testing... - Running")
             
@@ -50,6 +80,15 @@ class Selector:
                 
                 if accuracy is not None:
                     print(f"     {short_name}: {accuracy:.1%} - Done ({elapsed:.1f}s)")
+                    
+                    # Check if model failed threshold
+                    if accuracy < min_accuracy:
+                        # Mark this model's family as failed
+                        for family, models in model_families.items():
+                            if any(m in short_name for m in models):
+                                failed_families.add(family)
+                                print(f"     Note: {family} family marked as below threshold")
+                                break
                 else:
                     print(f"     {short_name}: No labels - Done ({elapsed:.1f}s)")
                     

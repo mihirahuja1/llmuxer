@@ -145,6 +145,7 @@ def optimize_cost(
     input_column: str = "input",
     ground_truth_column: str = "ground_truth",
     min_accuracy: float = 0.9,
+    sample_size: Optional[float] = None,  # Percentage of dataset to use (0.0-1.0)
     # Legacy support
     base_model: Optional[str] = None,
     golden_dataset: Optional[str] = None,
@@ -205,7 +206,7 @@ def optimize_cost(
         task = output_format
     
     # Load and standardize dataset
-    dataset_path, processed_examples = _prepare_dataset(dataset, examples, input_column, ground_truth_column)
+    dataset_path, processed_examples = _prepare_dataset(dataset, examples, input_column, ground_truth_column, sample_size)
     
     # Auto-detect task type and options if not specified
     if not task and not options:
@@ -233,9 +234,9 @@ def optimize_cost(
     # Display cost estimation table with baseline accuracy
     _display_cost_tables(baseline, model_costs, experiment_cost, baseline_accuracy)
     
-    # Run evaluation
+    # Run evaluation with smart stopping
     selector = Selector(test_models)
-    results = selector.run_evaluation(dataset_path, prompt or "", task, options, model_costs)
+    results = selector.run_evaluation(dataset_path, prompt or "", task, options, model_costs, min_accuracy)
     
     # Find best cost-optimized model
     best = _select_cost_optimized(results, baseline, min_accuracy, model_costs)
@@ -247,13 +248,19 @@ def optimize_cost(
 
 
 def _prepare_dataset(dataset_path: Optional[str], examples: Optional[List[Dict]], 
-                    input_col: str, ground_truth_col: str) -> tuple:
+                    input_col: str, ground_truth_col: str, sample_size: Optional[float] = None) -> tuple:
     """Prepare dataset from various input formats."""
     import tempfile
     import os
+    import random
     
     if examples:
         # Direct examples provided
+        # Apply sampling if specified
+        if sample_size and 0 < sample_size < 1.0:
+            num_samples = int(len(examples) * sample_size)
+            examples = random.sample(examples, min(num_samples, len(examples)))
+        
         temp_file = tempfile.NamedTemporaryFile(mode='w', suffix='.jsonl', delete=False)
         for example in examples:
             # Standardize format
@@ -269,21 +276,23 @@ def _prepare_dataset(dataset_path: Optional[str], examples: Optional[List[Dict]]
     elif dataset_path:
         processed_examples = _detect_and_load_dataset(dataset_path, input_col, ground_truth_col)
         
-        # If it's a HuggingFace dataset (not a file path), create a temp file
-        if not os.path.exists(dataset_path):
-            temp_file = tempfile.NamedTemporaryFile(mode='w', suffix='.jsonl', delete=False)
-            for example in processed_examples:
-                # Convert to expected format
-                standardized = {
-                    'input': example['input'],
-                    'label': example['ground_truth'],
-                    'LLM_Decision': None
-                }
-                temp_file.write(json.dumps(standardized) + '\n')
-            temp_file.close()
-            return temp_file.name, processed_examples
+        # Apply sampling if specified
+        if sample_size and 0 < sample_size < 1.0:
+            num_samples = int(len(processed_examples) * sample_size)
+            processed_examples = random.sample(processed_examples, min(num_samples, len(processed_examples)))
         
-        return dataset_path, processed_examples
+        # Create a temp file with sampled data
+        temp_file = tempfile.NamedTemporaryFile(mode='w', suffix='.jsonl', delete=False)
+        for example in processed_examples:
+            # Convert to expected format
+            standardized = {
+                'input': example['input'],
+                'label': example.get('ground_truth') or example.get('label'),
+                'LLM_Decision': None
+            }
+            temp_file.write(json.dumps(standardized) + '\n')
+        temp_file.close()
+        return temp_file.name, processed_examples
     
     else:
         raise ValueError("Must provide either 'dataset' path or 'examples' list")
@@ -550,21 +559,42 @@ def optimize_speed(
 
 
 def _get_test_models(base_model: Optional[str], model_costs: Dict) -> List[Dict]:
-    """Get list of reliable models to test based on base model and live pricing."""
+    """Get list of models to test from curated universe."""
     
-    # Filter out free models and unreliable ones
-    reliable_models = {}
-    for model_id, pricing in model_costs.items():
-        # Skip free models (often rate limited)
-        if ':free' in model_id:
-            continue
-        # Skip models with zero cost (often problematic)
-        if pricing["input"] == 0 and pricing["output"] == 0:
-            continue
-        # Skip certain known problematic models
-        if any(skip in model_id for skip in ['openrouter/', 'hunyuan', 'kimi', 'chimera']):
-            continue
-        reliable_models[model_id] = pricing
+    # Define our curated model universe
+    MODEL_UNIVERSE = {
+        # OpenAI - 2 models
+        "openai/gpt-4o-mini",
+        "openai/gpt-3.5-turbo",
+        
+        # Anthropic - 2 models  
+        "anthropic/claude-3-haiku",
+        "anthropic/claude-3-sonnet",
+        
+        # Google - 3 models
+        "google/gemini-1.5-flash-8b", 
+        "google/gemini-1.5-flash",
+        "google/gemini-1.5-pro",
+        
+        # Qwen - 3 models
+        "alibaba/qwen-2.5-7b-instruct",
+        "alibaba/qwen-2.5-14b-instruct", 
+        "alibaba/qwen-2.5-72b-instruct",
+        
+        # DeepSeek - 3 models
+        "deepseek/deepseek-chat",
+        "deepseek/deepseek-coder", 
+        "deepseek/deepseek-v2.5",
+        
+        # Mistral - 3 models
+        "mistralai/mistral-7b-instruct",
+        "mistralai/mixtral-8x7b-instruct",
+        "mistralai/mistral-large",
+        
+        # Meta (bonus - too good to exclude)
+        "meta-llama/llama-3.1-8b-instruct",
+        "meta-llama/llama-3.1-70b-instruct"
+    }
     
     # Map common model names to their OpenRouter equivalents
     model_mapping = {
@@ -577,41 +607,43 @@ def _get_test_models(base_model: Optional[str], model_costs: Dict) -> List[Dict]
     # Use mapped model name if available
     mapped_base_model = model_mapping.get(base_model, base_model) if base_model else None
     
-    if mapped_base_model and mapped_base_model in reliable_models:
-        base_cost = reliable_models[mapped_base_model]["input"] + reliable_models[mapped_base_model]["output"]
-        # Test only models cheaper than base model (smart optimization)
-        models = []
-        for model_id, pricing in reliable_models.items():
+    # Filter model universe to only include models that exist in model_costs
+    available_models = {}
+    for model_id in MODEL_UNIVERSE:
+        if model_id in model_costs:
+            available_models[model_id] = model_costs[model_id]
+    
+    models = []
+    
+    if mapped_base_model and mapped_base_model in model_costs:
+        base_cost = model_costs[mapped_base_model]["input"] + model_costs[mapped_base_model]["output"]
+        
+        # Test only models from our universe that are cheaper than base model
+        for model_id, pricing in available_models.items():
             model_cost = pricing["input"] + pricing["output"]
             if model_cost < base_cost:  # Must be cheaper than base
                 models.append({"provider": "openrouter", "model": model_id})
         
-        # Sort by cost and take top 2 cheapest
-        models.sort(key=lambda x: reliable_models[x['model']]['input'] + reliable_models[x['model']]['output'])
-        models = models[:2]
+        # Sort by cost (most expensive first for smart stopping to work)
+        models.sort(key=lambda x: available_models[x['model']]['input'] + available_models[x['model']]['output'], reverse=True)
         
         # If no cheaper models found, show message
         if not models:
-            print(f"\nNo models found cheaper than {base_model}")
-            print("Testing 2 cheapest available models instead...")
-            # Fallback to cheapest models
+            print(f"\nNo models in universe cheaper than {base_model}")
+            print("Testing cheapest available models from universe...")
+            # Get all models from universe sorted by cost
             all_models = [(model_id, pricing["input"] + pricing["output"]) 
-                         for model_id, pricing in reliable_models.items()]
+                         for model_id, pricing in available_models.items()]
             all_models.sort(key=lambda x: x[1])
             models = [{"provider": "openrouter", "model": model_id} 
-                     for model_id, _ in all_models[:2]]
-        
+                     for model_id, _ in all_models[:5]]
     else:
-        # Test a curated set of reliable models (limited to 2 for testing)
-        preferred_models = [
-            "openai/gpt-3.5-turbo",
-            "meta-llama/llama-3.1-8b-instruct",
-        ]
-        models = [
-            {"provider": "openrouter", "model": model_id}
-            for model_id in preferred_models
-            if model_id in reliable_models
-        ]
+        # No baseline or baseline not in costs - use cheapest from universe
+        all_models = [(model_id, pricing["input"] + pricing["output"]) 
+                     for model_id, pricing in available_models.items()]
+        all_models.sort(key=lambda x: x[1])
+        models = [{"provider": "openrouter", "model": model_id} 
+                 for model_id, _ in all_models[:5]]
     
     return models
 

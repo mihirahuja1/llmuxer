@@ -1,25 +1,39 @@
 from setuptools import setup, find_packages
 
-with open("README.md", "r") as fh:
+with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name="llmux",
+    name="llmux-optimizer",
     version="0.1.0",
-    author="Your Name",
-    description="Cut your LLM costs by 90% with one line of code",
+    author="Mihir Ahuja",
+    author_email="your@email.com",
+    description="Automatically find cheaper LLM alternatives while maintaining performance",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    packages=find_packages(),
+    url="https://github.com/mihirahuja/llmux",
+    packages=find_packages(exclude=["tests*", "docs*", "examples*"]),
     classifiers=[
-        "Programming Language :: Python :: 3",
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Topic :: Scientific/Engineering :: Artificial Intelligence",
     ],
-    python_requires=">=3.7",
+    python_requires=">=3.8",
     install_requires=[
-        "requests>=2.31.0",
+        "requests>=2.25.0",
+        "tqdm>=4.60.0",
         "openai>=1.0.0",
-        "anthropic>=0.18.0",
+        "anthropic>=0.5.0",
     ],
+    extras_require={
+        "dev": ["pytest>=6.0", "black", "flake8", "mypy", "isort"],
+        "data": ["pandas>=1.3.0", "datasets>=2.0.0"],
+    },
 )
