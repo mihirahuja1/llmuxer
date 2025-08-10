@@ -26,6 +26,7 @@ examples = [
 
 result = llmuxer.optimize_cost(
     baseline="gpt-4",
+    prompt="Classify the sentiment of this text as positive, negative, or neutral.",
     examples=examples,
     task="classification",  # Currently only classification is supported
     options=["positive", "negative", "neutral"],
