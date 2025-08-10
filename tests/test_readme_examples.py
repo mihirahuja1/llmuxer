@@ -1,7 +1,7 @@
 """Test that README examples work correctly."""
 
 import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 import llmuxer
 
 
@@ -10,9 +10,9 @@ def test_quick_start_example():
     
     # Example from README
     examples = [
-        {"input": "This product is amazing!", "ground_truth": "positive"},
-        {"input": "Terrible service", "ground_truth": "negative"},
-        {"input": "It's okay", "ground_truth": "neutral"}
+        {"input": "This product is amazing!", "label": "positive"},
+        {"input": "Terrible service", "label": "negative"},
+        {"input": "It's okay", "label": "neutral"}
     ]
     
     # Mock the API calls
@@ -58,7 +58,7 @@ def test_error_handling_example():
         
         result = llmuxer.optimize_cost(
             baseline="gpt-4",
-            examples=[{"input": "test", "ground_truth": "label"}],
+            examples=[{"input": "test", "label": "test_label"}],
             min_accuracy=0.99  # Very high threshold
         )
         

@@ -50,9 +50,9 @@ import llmuxer
 
 # Example: Classify sentiment with 90% accuracy requirement
 examples = [
-    {"input": "This product is amazing!", "ground_truth": "positive"},
-    {"input": "Terrible service", "ground_truth": "negative"},
-    {"input": "It's okay", "ground_truth": "neutral"}
+    {"input": "This product is amazing!", "label": "positive"},
+    {"input": "Terrible service", "label": "negative"},
+    {"input": "It's okay", "label": "neutral"}
 ]
 
 result = llmuxer.optimize_cost(
@@ -108,7 +108,7 @@ Find the cheapest model meeting your requirements.
 
 **Parameters:**
 - `baseline` (str): Your current model (e.g., "gpt-4")
-- `examples` (list): Test examples with input and ground_truth
+- `examples` (list): Test examples with input and label
 - `dataset` (str): Path to JSONL file (alternative to examples)
 - `task` (str): Currently "classification" only
 - `options` (list): Valid output classes for classification

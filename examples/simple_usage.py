@@ -34,9 +34,9 @@ else:
 
 # # Classification with explicit success criteria
 # sentiment_examples = [
-#     {"input": "I love this product!", "ground_truth": "positive"},
-#     {"input": "It's okay, nothing special", "ground_truth": "neutral"},
-#     {"input": "Terrible quality, would not recommend", "ground_truth": "negative"},
+#     {"input": "I love this product!", "label": "positive"},
+#     {"input": "It's okay, nothing special", "label": "neutral"},
+#     {"input": "Terrible quality, would not recommend", "label": "negative"},
 # ]
 # result = llmuxer.optimize_cost(
 #     baseline="gpt-4",
@@ -47,9 +47,9 @@ else:
 
 # # Extraction task
 # name_examples = [
-#     {"input": "Hi, I'm John Smith from Google", "ground_truth": "John Smith"},
-#     {"input": "Sarah Johnson will be joining us", "ground_truth": "Sarah Johnson"},
-#     {"input": "The meeting is at 3pm", "ground_truth": None},
+#     {"input": "Hi, I'm John Smith from Google", "label": "John Smith"},
+#     {"input": "Sarah Johnson will be joining us", "label": "Sarah Johnson"},
+#     {"input": "The meeting is at 3pm", "label": None},
 # ]
 # result = llmuxer.optimize_cost(
 #     baseline="gpt-4",

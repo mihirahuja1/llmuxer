@@ -266,7 +266,7 @@ def _prepare_dataset(dataset_path: Optional[str], examples: Optional[List[Dict]]
             # Standardize format
             standardized = {
                 'input': example.get(input_col, example.get('input', example.get('text', ''))),
-                'label': example.get(ground_truth_col, example.get('ground_truth', example.get('label', None))),
+                'label': example.get(ground_truth_col, example.get('label', example.get('ground_truth', None))),
                 'LLM_Decision': None
             }
             temp_file.write(json.dumps(standardized) + '\n')
@@ -287,7 +287,7 @@ def _prepare_dataset(dataset_path: Optional[str], examples: Optional[List[Dict]]
             # Convert to expected format
             standardized = {
                 'input': example['input'],
-                'label': example.get('ground_truth') or example.get('label'),
+                'label': example.get('label') or example.get('ground_truth'),
                 'LLM_Decision': None
             }
             temp_file.write(json.dumps(standardized) + '\n')
@@ -358,7 +358,7 @@ def _load_csv_dataset(file_path: str, input_col: str, ground_truth_col: str) -> 
                 break
     
     if ground_truth_col not in df.columns:
-        for possible in ['ground_truth', 'label', 'answer', 'output']:
+        for possible in ['label', 'ground_truth', 'answer', 'output']:
             if possible in df.columns:
                 ground_truth_col = possible
                 break
@@ -725,18 +725,18 @@ def _detect_task_and_options(examples: List[Dict], prefer_task: Optional[str] = 
     if not examples:
         return None, None
     
-    # Collect all ground truth values
-    ground_truths = []
+    # Collect all label values
+    labels = []
     for example in examples:
-        gt = example.get('ground_truth')
-        if gt is not None:
-            ground_truths.append(gt)
+        label = example.get('label') or example.get('ground_truth')
+        if label is not None:
+            labels.append(label)
     
-    if not ground_truths:
+    if not labels:
         return None, None
     
     # Get unique values
-    unique_values = set(ground_truths)
+    unique_values = set(labels)
     
     # If user prefers a specific task type, validate it
     if prefer_task == "binary":

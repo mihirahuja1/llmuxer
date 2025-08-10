@@ -10,9 +10,9 @@ def test_optimize_cost_basic():
     
     # Sample classification data
     examples = [
-        {"input": "This is great!", "ground_truth": "positive"},
-        {"input": "This is terrible!", "ground_truth": "negative"},
-        {"input": "This is okay", "ground_truth": "neutral"},
+        {"input": "This is great!", "label": "positive"},
+        {"input": "This is terrible!", "label": "negative"},
+        {"input": "This is okay", "label": "neutral"},
     ]
     
     # Mock the actual API calls to avoid real requests in tests
@@ -47,7 +47,7 @@ def test_optimize_cost_basic():
 def test_invalid_baseline():
     """Test error handling for invalid baseline."""
     
-    examples = [{"input": "test", "ground_truth": "label"}]
+    examples = [{"input": "test", "label": "test_label"}]
     
     # This should handle gracefully - either return error or work with fallback
     result = llmuxer.optimize_cost(
