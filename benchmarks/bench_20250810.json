@@ -1,0 +1,56 @@
+{
+  "config": {
+    "date": "2025-08-10",
+    "llmuxer_version": "0.1.0",
+    "openrouter_base_url": "https://openrouter.ai/api/v1",
+    "baseline_model": "openai/gpt-4o",
+    "dataset_path": "data/jobs_50.jsonl",
+    "task": "classification",
+    "min_accuracy": 0.85,
+    "test_models": [
+      "openai/gpt-4o-mini",
+      "openai/gpt-3.5-turbo",
+      "anthropic/claude-3-haiku",
+      "google/gemini-1.5-flash",
+      "meta-llama/llama-3.1-8b-instruct",
+      "meta-llama/llama-3.1-70b-instruct",
+      "mistralai/mistral-7b-instruct",
+      "deepseek/deepseek-chat"
+    ]
+  },
+  "timestamp": "2025-08-10T13:59:44.520149",
+  "dataset_size": 50,
+  "results": {
+    "best_model": {
+      "model": "anthropic/claude-3-haiku",
+      "accuracy": 0.92,
+      "cost_per_million_tokens": 1.5,
+      "cost_per_request": 0.000225,
+      "processing_time": 24.3
+    },
+    "baseline": {
+      "model": "openai/gpt-4o",
+      "cost_per_million_tokens": 12.5,
+      "cost_per_request": 0.001875
+    },
+    "savings": {
+      "absolute_per_million": 11.0,
+      "percent": 88.0,
+      "per_request": 0.00165
+    }
+  },
+  "summary": {
+    "best_model": {
+      "model": "anthropic/claude-3-haiku",
+      "accuracy_percent": 92.0,
+      "savings_percent": 88.0,
+      "cost_reduction": "88.0%"
+    },
+    "conservative_estimates": {
+      "tokens_per_request": 150,
+      "baseline_monthly_cost_1k_requests": 1.875,
+      "optimized_monthly_cost_1k_requests": 0.225,
+      "monthly_savings_1k_requests": 1.65
+    }
+  }
+}

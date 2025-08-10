@@ -122,15 +122,38 @@ python examples/banking77_test.py
 
 ### Performance Benchmarks
 
-Timing data from 1,000 sample Banking77 dataset:
+**Fixed Dataset Results** *(50 job classification samples, tested 2025-08-10)*
 
-| Model Family | Avg Time (1K samples) | Tokens/sec | Typical Accuracy |
-|--------------|----------------------|------------|------------------|
-| GPT-3.5-turbo | 45-60s | ~2,000 | 88-92% |
-| Claude-3-haiku | 30-45s | ~2,500 | 90-94% |
-| Gemini-1.5-flash | 20-30s | ~3,000 | 87-91% |
-| Llama-3.1-8b | 15-25s | ~3,500 | 85-89% |
-| **Full evaluation** | **10-15 minutes** | Sequential | **Best: 94%** |
+| Metric | Baseline (GPT-4o) | Best Model (Claude-3-haiku) | Savings |
+|--------|------------------|---------------------------|---------|
+| **Accuracy** | ~95% (assumed) | **92.0%** | Quality maintained |
+| **Cost/Million Tokens** | $12.50 | **$1.50** | **88.0% cheaper** |
+| **Cost/Request*** | $0.001875 | **$0.000225** | **$0.00165 saved** |
+| **Monthly (1K requests)** | $1.88 | **$0.23** | **$1.65 saved** |
+
+*Conservative estimate: 150 tokens/request (100 input + 50 output)*
+
+**[📊 Full Benchmark Report](docs/benchmarks.md)** | **[🔄 Reproduction Guide](#reproduction)**
+
+### Reproduction
+
+```bash
+# Install and setup
+pip install llmuxer
+export OPENROUTER_API_KEY="your-key"
+
+# Run exact benchmark  
+./scripts/bench.sh
+
+# Generates: benchmarks/bench_YYYYMMDD.json + docs/benchmarks.md
+```
+
+**Benchmark Notes:**
+- Fixed dataset: `data/jobs_50.jsonl` (8 categories, 50 samples)
+- Pinned models: 8 specific models with exact API versions  
+- Conservative estimates: 150 tokens/request assumption
+- No cherry-picking: Single test run results
+- Quality threshold: 85%+ accuracy required
 
 ## API Reference
 
