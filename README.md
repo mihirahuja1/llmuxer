@@ -10,6 +10,7 @@ Automatically find cheaper LLM alternatives while maintaining performance.
 ## Quick Start
 
 ```python
+# Note: The package is installed as llmux-optimizer but imported as llmux
 import llmux
 
 # Find the cheapest model that maintains your accuracy requirements
@@ -43,6 +44,9 @@ pip install llmux-optimizer
 ### Simple API
 
 ```python
+# After installing: pip install llmux-optimizer
+import llmux
+
 # Basic usage
 result = llmux.optimize_cost(
     baseline="gpt-4",
@@ -82,6 +86,7 @@ Tests models from a curated universe including:
 ### Classification Task
 
 ```python
+# pip install llmux-optimizer
 import llmux
 
 # Sentiment analysis
@@ -102,6 +107,9 @@ result = llmux.optimize_cost(
 ### Banking Intent Classification
 
 ```python
+# pip install llmux-optimizer
+import llmux
+
 # Prepare dataset (one-time)
 from prepare_banking77 import prepare_banking77_dataset
 prepare_banking77_dataset()
