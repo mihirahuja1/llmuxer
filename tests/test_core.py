@@ -1,4 +1,4 @@
-"""Test core functionality of llmux."""
+"""Test core functionality of llmux-optimizer."""
 
 import pytest
 from unittest.mock import Mock, patch

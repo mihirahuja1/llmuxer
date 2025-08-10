@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Simple LLMux usage example."""
+"""Simple LLMux-Optimizer usage example."""
 
 import llmux
 

@@ -32,10 +32,10 @@ dependencies = [
 requires-python = ">=3.8"
 
 [project.urls]
-Homepage = "https://github.com/mihirahuja/llmux"
-Documentation = "https://github.com/mihirahuja/llmux#readme"
-Repository = "https://github.com/mihirahuja/llmux"
-Issues = "https://github.com/mihirahuja/llmux/issues"
+Homepage = "https://github.com/mihirahuja/llmux-optimizer"
+Documentation = "https://github.com/mihirahuja/llmux-optimizer#readme"
+Repository = "https://github.com/mihirahuja/llmux-optimizer"
+Issues = "https://github.com/mihirahuja/llmux-optimizer/issues"
 
 [project.optional-dependencies]
 dev = ["pytest>=6.0", "black", "flake8", "mypy", "isort"]

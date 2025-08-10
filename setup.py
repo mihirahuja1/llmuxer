@@ -7,11 +7,11 @@ setup(
     name="llmux-optimizer",
     version="0.1.0",
     author="Mihir Ahuja",
-    author_email="your@email.com",
+    author_email="mihirahuja09@gmail.com",
     description="Automatically find cheaper LLM alternatives while maintaining performance",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/mihirahuja/llmux",
+    url="https://github.com/mihirahuja/llmux-optimizer",
     packages=find_packages(exclude=["tests*", "docs*", "examples*"]),
     classifiers=[
         "Development Status :: 4 - Beta",

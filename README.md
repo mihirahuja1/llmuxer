@@ -30,7 +30,7 @@ print(f"Accuracy: {result['accuracy']:.1%}")
 pip install llmux-optimizer
 ```
 
-## Why LLMux?
+## Why LLMux-Optimizer?
 
 - **One-liner optimization** - Just specify baseline and dataset
 - **Real cost savings** - Average 73% reduction in LLM costs
@@ -150,7 +150,7 @@ LLMux automatically implements smart stopping - if a larger model in a family (e
 
 ## Dataset Format
 
-LLMux expects JSONL format with `input` and `label` fields:
+LLMux-Optimizer expects JSONL format with `input` and `label` fields:
 
 ```json
 {"input": "Example text", "label": "category"}
@@ -204,19 +204,19 @@ MIT License - see LICENSE file for details.
 
 ## Citation
 
-If you use LLMux in your research, please cite:
+If you use LLMux-Optimizer in your research, please cite:
 
 ```bibtex
-@software{llmux2024,
-  title = {LLMux: Automatic LLM Cost Optimization},
+@software{llmux_optimizer2024,
+  title = {LLMux-Optimizer: Automatic LLM Cost Optimization},
   author = {Ahuja, Mihir},
   year = {2024},
-  url = {https://github.com/mihirahuja/llmux}
+  url = {https://github.com/mihirahuja/llmux-optimizer}
 }
 ```
 
 ## Support
 
-- Issues: [GitHub Issues](https://github.com/mihirahuja/llmux/issues)
-- Discussions: [GitHub Discussions](https://github.com/mihirahuja/llmux/discussions)
-- Email: your@email.com
+- Issues: [GitHub Issues](https://github.com/mihirahuja/llmux-optimizer/issues)
+- Discussions: [GitHub Discussions](https://github.com/mihirahuja/llmux-optimizer/discussions)
+- Email: mihirahuja09@gmail.com
