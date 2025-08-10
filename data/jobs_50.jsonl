@@ -1,0 +1,52 @@
+{"input": "Software Engineer position at Google working on machine learning infrastructure", "label": "engineering"}
+{"input": "Marketing Manager role focused on digital campaigns and brand strategy", "label": "marketing"}
+{"input": "Senior Data Scientist analyzing customer behavior and building ML models", "label": "engineering"}
+{"input": "Registered Nurse position in ICU with 3+ years experience required", "label": "healthcare"}
+{"input": "Elementary School Teacher for 3rd grade students", "label": "education"}
+{"input": "Financial Analyst role in investment banking focusing on equity research", "label": "finance"}
+{"input": "UX Designer creating user interfaces for mobile applications", "label": "design"}
+{"input": "Sales Representative for B2B software solutions", "label": "sales"}
+{"input": "Project Manager overseeing software development lifecycle", "label": "management"}
+{"input": "Content Writer creating technical documentation and blog posts", "label": "writing"}
+{"input": "Physical Therapist working with sports injury rehabilitation", "label": "healthcare"}
+{"input": "DevOps Engineer managing cloud infrastructure and CI/CD pipelines", "label": "engineering"}
+{"input": "Graphic Designer for print and digital marketing materials", "label": "design"}
+{"input": "Account Executive managing enterprise client relationships", "label": "sales"}
+{"input": "Product Manager defining roadmap for fintech applications", "label": "management"}
+{"input": "High School Math Teacher with expertise in calculus", "label": "education"}
+{"input": "Investment Advisor providing wealth management services", "label": "finance"}
+{"input": "Technical Writer documenting API specifications", "label": "writing"}
+{"input": "Pediatric Nurse in children's hospital emergency department", "label": "healthcare"}
+{"input": "Full Stack Developer building web applications with React and Node.js", "label": "engineering"}
+{"input": "Brand Manager developing marketing strategies for consumer products", "label": "marketing"}
+{"input": "Database Administrator optimizing performance for large-scale systems", "label": "engineering"}
+{"input": "Interior Designer for residential and commercial spaces", "label": "design"}
+{"input": "Business Development Manager identifying new market opportunities", "label": "sales"}
+{"input": "Operations Manager streamlining manufacturing processes", "label": "management"}
+{"input": "University Professor teaching computer science courses", "label": "education"}
+{"input": "Portfolio Manager handling institutional investment funds", "label": "finance"}
+{"input": "Copywriter creating advertising copy for digital campaigns", "label": "writing"}
+{"input": "Surgeon specializing in cardiac procedures", "label": "healthcare"}
+{"input": "Mobile App Developer for iOS and Android platforms", "label": "engineering"}
+{"input": "Digital Marketing Specialist managing social media campaigns", "label": "marketing"}
+{"input": "Web Designer creating responsive websites and landing pages", "label": "design"}
+{"input": "Inside Sales Rep selling software licenses to SMBs", "label": "sales"}
+{"input": "Program Manager coordinating cross-functional initiatives", "label": "management"}
+{"input": "Special Education Teacher working with autistic children", "label": "education"}
+{"input": "Credit Analyst assessing loan applications for commercial bank", "label": "finance"}
+{"input": "Grant Writer for non-profit organizations", "label": "writing"}
+{"input": "Pharmacist in retail pharmacy setting", "label": "healthcare"}
+{"input": "Security Engineer implementing cybersecurity measures", "label": "engineering"}
+{"input": "SEO Specialist optimizing websites for search rankings", "label": "marketing"}
+{"input": "Product Designer creating user experiences for SaaS platforms", "label": "design"}
+{"input": "Regional Sales Manager leading team of 8 sales representatives", "label": "sales"}
+{"input": "Facilities Manager overseeing office operations and maintenance", "label": "management"}
+{"input": "College Admissions Counselor helping students with applications", "label": "education"}
+{"input": "Risk Analyst evaluating investment portfolio risks", "label": "finance"}
+{"input": "Freelance Journalist covering technology industry news", "label": "writing"}
+{"input": "Emergency Room Doctor treating critical patients", "label": "healthcare"}
+{"input": "Machine Learning Engineer developing recommendation systems", "label": "engineering"}
+{"input": "Growth Hacker experimenting with user acquisition strategies", "label": "marketing"}
+{"input": "UI/UX Designer focusing on accessibility and inclusive design", "label": "design"}
+{"input": "Enterprise Sales Director closing million-dollar deals", "label": "sales"}
+{"input": "Supply Chain Manager optimizing logistics and procurement", "label": "management"}

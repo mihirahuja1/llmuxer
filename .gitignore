@@ -70,8 +70,9 @@ env/
 
 # Project specific
 data/*.jsonl
-\!data/golden_jobs.jsonl
-\!data/golden_jobs_with_baseline.jsonl
+!data/golden_jobs.jsonl
+!data/golden_jobs_with_baseline.jsonl
+!data/jobs_50.jsonl
 *.log
 .openrouter_key
 .anthropic_key
