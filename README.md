@@ -43,7 +43,7 @@ pip install llmuxer
 
 - **One-liner optimization** - Just specify baseline and dataset
 - **Real cost savings** - Average 73% reduction in LLM costs
-- **Multiple providers** - Tests 18+ models across OpenAI, Anthropic, Google, Meta, Mistral, and more
+- **Multiple providers** - Tests 18+ models across OpenAI, Anthropic, Google, Meta, Mistral, Qwen, DeepSeek, and more
 - **Smart stopping** - Skips smaller models when larger ones fail (saves API calls)
 - **Production ready** - Used by companies processing millions of requests
 
@@ -75,9 +75,7 @@ result = llmuxer.optimize_cost(
 ### Supported Tasks
 
 - **Classification** - Sentiment analysis, intent detection, categorization
-- **Extraction** - Named entity recognition, information extraction
-- **Generation** - Text completion, summarization, translation
-- **Binary** - Yes/no, true/false decisions
+- More task types coming soon (see roadmap)
 
 ### Model Universe
 
@@ -87,6 +85,8 @@ Tests models from a curated universe including:
 - Google (Gemini Pro, Flash)
 - Meta (Llama 3.1 8B, 70B)
 - Mistral (7B, Mixtral, Large)
+- Qwen (Qwen 2.5 7B, 32B, 72B)
+- DeepSeek (Chat, Coder)
 - And more...
 
 ## Examples
@@ -144,22 +144,6 @@ Typical savings on standard benchmarks:
 
 ## Advanced Usage
 
-### Custom Evaluation
-
-```python
-from llmuxer import Evaluator, Provider
-
-# Use specific provider
-provider = Provider.get_provider("openrouter", model="meta-llama/llama-3.1-8b")
-evaluator = Evaluator(provider)
-
-# Run evaluation
-accuracy, results = evaluator.evaluate(
-    dataset="test_data.jsonl",
-    system_prompt="You are a helpful assistant"
-)
-```
-
 ### Smart Stopping
 
 LLMuxer automatically implements smart stopping - if a larger model in a family (e.g., Llama-70B) fails to meet accuracy requirements, smaller models (Llama-8B) are skipped to save API calls.
@@ -192,7 +176,7 @@ Main function to find the best cost-optimized model.
 - `baseline` (str): Reference model to beat (e.g., "gpt-4")
 - `dataset` (str): Path to JSONL dataset file
 - `prompt` (str, optional): System prompt for the task
-- `task` (str, optional): Task type ("classification", "extraction", "generation", "binary")
+- `task` (str, optional): Task type (currently only "classification" supported)
 - `min_accuracy` (float): Minimum acceptable accuracy (default: 0.9)
 - `sample_size` (float, optional): Percentage of dataset to use (0.0-1.0)
 - `options` (list, optional): Valid output options for classification
@@ -234,18 +218,21 @@ If you use LLMuxer in your research, please cite:
 ## Product Roadmap
 
 ### Current Features (v0.1.0)
-- ✅ Multi-provider model testing (OpenAI, Anthropic, Google, Meta, Mistral)
-- ✅ Classification, extraction, generation, and binary tasks
+- ✅ Multi-provider model testing (OpenAI, Anthropic, Google, Meta, Mistral, Qwen, DeepSeek)
+- ✅ Classification tasks (sentiment, intent, categorization)
 - ✅ Smart stopping for model families
 - ✅ Cost comparison and savings calculation
 - ✅ Sample size control for faster testing
-- ✅ JSONL and CSV dataset support
+- ✅ JSONL dataset support
 
 ### Coming Soon (v0.2.0)
+- 🔄 **Extraction tasks** - Named entity recognition, information extraction
+- 🔄 **Generation tasks** - Text completion, summarization, translation
+- 🔄 **Binary tasks** - Yes/no, true/false decisions
+- 🔄 **CSV dataset support** - Direct CSV file input
 - 🔄 **Async evaluation** - Test multiple models in parallel
 - 🔄 **Caching layer** - Reuse evaluations across runs
 - 🔄 **Custom evaluation metrics** - Beyond accuracy (F1, precision, recall)
-- 🔄 **Streaming support** - For generation tasks
 - 🔄 **Fine-tuning recommendations** - When to fine-tune vs use larger models
 
 ### Future (v0.3.0+)
