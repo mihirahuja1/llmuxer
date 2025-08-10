@@ -4,13 +4,49 @@
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Find the cheapest LLM that meets your quality bar.**
+**Find the cheapest LLM that meets your quality bar** *(Currently supports classification tasks only)*
+
+## Quick Start
+
+```python
+import llmuxer
+
+# Example: Classify sentiment with 90% accuracy requirement
+examples = [
+    {"input": "This product is amazing!", "label": "positive"},
+    {"input": "Terrible service", "label": "negative"},
+    {"input": "It's okay", "label": "neutral"}
+]
+
+result = llmuxer.optimize_cost(
+    baseline="gpt-4",
+    examples=examples,
+    task="classification",  # Currently only classification is supported
+    options=["positive", "negative", "neutral"],
+    min_accuracy=0.9  # Require 90% accuracy
+)
+
+print(result)
+# Takes ~30-60 seconds for small datasets, ~10-15 minutes for 1k samples
+```
+
+### Example Output
+```python
+{
+    "model": "anthropic/claude-3-haiku",
+    "accuracy": 0.92,
+    "cost_per_million": 0.25,
+    "cost_savings": 0.975,  # 97.5% cheaper than GPT-4
+    "baseline_cost_per_million": 10.0,
+    "tokens_evaluated": 1500
+}
+```
 
 ## The Problem
 
 You're using GPT-4 for classification. It works well but costs $20/million tokens. Could GPT-3.5 do just as well for $0.50? What about Claude Haiku at $0.25? Or Llama-3.1 at $0.06?
 
-**LLMuxer automatically tests your task across 18 models to find the cheapest one that maintains your required accuracy.**
+**LLMuxer automatically tests your classification task across 18 models to find the cheapest one that maintains your required accuracy.**
 
 ## How It Works
 
@@ -43,49 +79,14 @@ pip install llmuxer
 export OPENROUTER_API_KEY="your-api-key-here"
 ```
 
-## Quick Start
-
-```python
-import llmuxer
-
-# Example: Classify sentiment with 90% accuracy requirement
-examples = [
-    {"input": "This product is amazing!", "label": "positive"},
-    {"input": "Terrible service", "label": "negative"},
-    {"input": "It's okay", "label": "neutral"}
-]
-
-result = llmuxer.optimize_cost(
-    baseline="gpt-4",
-    examples=examples,
-    task="classification",
-    options=["positive", "negative", "neutral"],
-    min_accuracy=0.9  # Require 90% accuracy
-)
-
-print(result)
-# Takes ~30-60 seconds for small datasets, ~10-15 minutes for 1k samples
-```
-
-### Example Output
-```python
-{
-    "model": "anthropic/claude-3-haiku",
-    "accuracy": 0.92,
-    "cost_per_million": 0.25,
-    "cost_savings": 0.975,  # 97.5% cheaper than GPT-4
-    "baseline_cost_per_million": 10.0,
-    "tokens_evaluated": 1500
-}
-```
-
 ## Key Features
 
-✅ **18 models tested** - OpenAI, Anthropic, Google, Meta, Mistral, Qwen, DeepSeek  
-✅ **Smart stopping** - Skips smaller models if larger ones fail  
-✅ **Cost breakdown** - See token counts and costs per model  
-✅ **Fast testing** - Use `sample_size` to test on subset first  
-✅ **Simple API** - One function does everything  
+- **18 models tested** - OpenAI, Anthropic, Google, Meta, Mistral, Qwen, DeepSeek  
+- **Smart stopping** - Skips smaller models if larger ones fail  
+- **Cost breakdown** - See token counts and costs per model  
+- **Fast testing** - Use `sample_size` to test on subset first  
+- **Simple API** - One function does everything  
+- **Classification only** - Support for extraction, generation, and binary tasks coming in v0.2
 
 ## Supported Models
 
@@ -105,13 +106,13 @@ We test a curated set of models across 7 providers:
 
 ### `optimize_cost()`
 
-Find the cheapest model meeting your requirements.
+Find the cheapest model meeting your requirements for classification tasks.
 
 **Parameters:**
 - `baseline` (str): Your current model (e.g., "gpt-4")
 - `examples` (list): Test examples with input and label
 - `dataset` (str): Path to JSONL file (alternative to examples)
-- `task` (str): Currently "classification" only
+- `task` (str): Must be "classification" (other tasks coming soon)
 - `options` (list): Valid output classes for classification
 - `min_accuracy` (float): Minimum acceptable accuracy (0.0-1.0)
 - `sample_size` (float): Fraction of dataset to test (0.0-1.0)
