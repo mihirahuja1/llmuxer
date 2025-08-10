@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Banking77 dataset test."""
 
-import llmux
+import llmuxer
 import os
 
 dataset_path = "data/banking77_test.jsonl"
@@ -9,7 +9,7 @@ if not os.path.exists(dataset_path):
     print("Dataset not found. Run: python prepare_banking77.py")
     exit(1)
 
-result = llmux.optimize_cost(
+result = llmuxer.optimize_cost(
     baseline="gpt-4",
     dataset=dataset_path,
     prompt="Classify the banking customer query into one of 77 intent categories (0-76).",

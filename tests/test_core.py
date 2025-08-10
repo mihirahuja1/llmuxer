@@ -1,8 +1,8 @@
-"""Test core functionality of llmux-optimizer."""
+"""Test core functionality of llmuxer."""
 
 import pytest
 from unittest.mock import Mock, patch
-import llmux
+import llmuxer
 
 
 def test_optimize_cost_basic():
@@ -16,13 +16,13 @@ def test_optimize_cost_basic():
     ]
     
     # Mock the actual API calls to avoid real requests in tests
-    with patch('llmux.api.fetch_openrouter_models') as mock_fetch:
+    with patch('llmuxer.api.fetch_openrouter_models') as mock_fetch:
         mock_fetch.return_value = {
             "openai/gpt-3.5-turbo": {"input": 0.5, "output": 1.5},
             "meta-llama/llama-3.1-8b": {"input": 0.015, "output": 0.02},
         }
         
-        with patch('llmux.selector.Selector.run_evaluation') as mock_eval:
+        with patch('llmuxer.selector.Selector.run_evaluation') as mock_eval:
             mock_eval.return_value = {
                 "openrouter/meta-llama/llama-3.1-8b": {
                     "accuracy": 0.85,
@@ -32,7 +32,7 @@ def test_optimize_cost_basic():
             }
             
             # This should not raise an exception
-            result = llmux.optimize_cost(
+            result = llmuxer.optimize_cost(
                 baseline="gpt-4",
                 examples=examples,
                 task="classification",
@@ -50,7 +50,7 @@ def test_invalid_baseline():
     examples = [{"input": "test", "ground_truth": "label"}]
     
     # This should handle gracefully - either return error or work with fallback
-    result = llmux.optimize_cost(
+    result = llmuxer.optimize_cost(
         baseline="invalid-model-name",
         examples=examples
     )
@@ -64,7 +64,7 @@ def test_empty_dataset():
     """Test handling of empty dataset."""
     
     with pytest.raises(ValueError):
-        llmux.optimize_cost(
+        llmuxer.optimize_cost(
             baseline="gpt-4",
             examples=[],  # Empty dataset
             min_accuracy=0.8
@@ -73,23 +73,23 @@ def test_empty_dataset():
 
 def test_version():
     """Test version is accessible."""
-    assert hasattr(llmux, '__version__')
-    assert isinstance(llmux.__version__, str)
-    assert llmux.version() == llmux.__version__
+    assert hasattr(llmuxer, '__version__')
+    assert isinstance(llmuxer.__version__, str)
+    assert llmuxer.version() == llmuxer.__version__
 
 
 def test_imports():
     """Test all expected functions are importable."""
     
     # Test main function
-    assert hasattr(llmux, 'optimize_cost')
-    assert callable(llmux.optimize_cost)
+    assert hasattr(llmuxer, 'optimize_cost')
+    assert callable(llmuxer.optimize_cost)
     
     # Test supporting classes
-    assert hasattr(llmux, 'Provider')
-    assert hasattr(llmux, 'Evaluator')
-    assert hasattr(llmux, 'Selector')
-    assert hasattr(llmux, 'get_provider')
+    assert hasattr(llmuxer, 'Provider')
+    assert hasattr(llmuxer, 'Evaluator')
+    assert hasattr(llmuxer, 'Selector')
+    assert hasattr(llmuxer, 'get_provider')
 
 
 if __name__ == "__main__":

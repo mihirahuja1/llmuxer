@@ -4,14 +4,14 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name="llmux-optimizer",
+    name="llmuxer",
     version="0.1.0",
     author="Mihir Ahuja",
     author_email="mihirahuja09@gmail.com",
     description="Automatically find cheaper LLM alternatives while maintaining performance",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/mihirahuja/llmux-optimizer",
+    url="https://github.com/mihirahuja/llmuxer",
     packages=find_packages(exclude=["tests*", "docs*", "examples*"]),
     classifiers=[
         "Development Status :: 4 - Beta",

@@ -1,17 +1,16 @@
-# LLMux-Optimizer
+# LLMuxer
 
-[![PyPI version](https://badge.fury.io/py/llmux-optimizer.svg)](https://badge.fury.io/py/llmux-optimizer)
+[![PyPI version](https://badge.fury.io/py/llmuxer.svg)](https://badge.fury.io/py/llmuxer)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Downloads](https://pepy.tech/badge/llmux-optimizer)](https://pepy.tech/project/llmux-optimizer)
+[![Downloads](https://pepy.tech/badge/llmuxer)](https://pepy.tech/project/llmuxer)
 
 Automatically find cheaper LLM alternatives while maintaining performance.
 
 ## Quick Start
 
 ```python
-# Note: The package is installed as llmux-optimizer but imported as llmux
-import llmux
+import llmuxer
 
 # Find the cheapest model that maintains your accuracy requirements
 result = llmux.optimize_cost(
@@ -28,10 +27,10 @@ print(f"Accuracy: {result['accuracy']:.1%}")
 ## Installation
 
 ```bash
-pip install llmux-optimizer
+pip install llmuxer
 ```
 
-## Why LLMux-Optimizer?
+## Why LLMuxer?
 
 - **One-liner optimization** - Just specify baseline and dataset
 - **Real cost savings** - Average 73% reduction in LLM costs
@@ -44,8 +43,8 @@ pip install llmux-optimizer
 ### Simple API
 
 ```python
-# After installing: pip install llmux-optimizer
-import llmux
+# After installing: pip install llmuxer
+import llmuxer
 
 # Basic usage
 result = llmux.optimize_cost(
@@ -86,8 +85,8 @@ Tests models from a curated universe including:
 ### Classification Task
 
 ```python
-# pip install llmux-optimizer
-import llmux
+# pip install llmuxer
+import llmuxer
 
 # Sentiment analysis
 examples = [
@@ -107,8 +106,8 @@ result = llmux.optimize_cost(
 ### Banking Intent Classification
 
 ```python
-# pip install llmux-optimizer
-import llmux
+# pip install llmuxer
+import llmuxer
 
 # Prepare dataset (one-time)
 from prepare_banking77 import prepare_banking77_dataset
@@ -139,7 +138,7 @@ Typical savings on standard benchmarks:
 ### Custom Evaluation
 
 ```python
-from llmux import Evaluator, Provider
+from llmuxer import Evaluator, Provider
 
 # Use specific provider
 provider = Provider.get_provider("openrouter", model="meta-llama/llama-3.1-8b")
@@ -154,11 +153,11 @@ accuracy, results = evaluator.evaluate(
 
 ### Smart Stopping
 
-LLMux automatically implements smart stopping - if a larger model in a family (e.g., Llama-70B) fails to meet accuracy requirements, smaller models (Llama-8B) are skipped to save API calls.
+LLMuxer automatically implements smart stopping - if a larger model in a family (e.g., Llama-70B) fails to meet accuracy requirements, smaller models (Llama-8B) are skipped to save API calls.
 
 ## Dataset Format
 
-LLMux-Optimizer expects JSONL format with `input` and `label` fields:
+LLMuxer expects JSONL format with `input` and `label` fields:
 
 ```json
 {"input": "Example text", "label": "category"}
@@ -212,19 +211,19 @@ MIT License - see LICENSE file for details.
 
 ## Citation
 
-If you use LLMux-Optimizer in your research, please cite:
+If you use LLMuxer in your research, please cite:
 
 ```bibtex
 @software{llmux_optimizer2024,
-  title = {LLMux-Optimizer: Automatic LLM Cost Optimization},
+  title = {LLMuxer: Automatic LLM Cost Optimization},
   author = {Ahuja, Mihir},
   year = {2024},
-  url = {https://github.com/mihirahuja/llmux-optimizer}
+  url = {https://github.com/mihirahuja/llmuxer}
 }
 ```
 
 ## Support
 
-- Issues: [GitHub Issues](https://github.com/mihirahuja/llmux-optimizer/issues)
-- Discussions: [GitHub Discussions](https://github.com/mihirahuja/llmux-optimizer/discussions)
+- Issues: [GitHub Issues](https://github.com/mihirahuja/llmuxer/issues)
+- Discussions: [GitHub Discussions](https://github.com/mihirahuja/llmuxer/discussions)
 - Email: mihirahuja09@gmail.com

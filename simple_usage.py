@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Simple LLMux usage example."""
+"""Simple LLMuxer usage example."""
 
-import llmux
+import llmuxer
 
 print("Finding cheaper model than gpt-4...")
 
 # Super simple - just baseline and dataset, everything else is auto-detected
-result = llmux.optimize_cost(
+result = llmuxer.optimize_cost(
     baseline="gpt-4", 
     dataset="data/golden_jobs_with_baseline.jsonl",
     min_accuracy=0.7
@@ -38,7 +38,7 @@ else:
 #     {"input": "It's okay, nothing special", "ground_truth": "neutral"},
 #     {"input": "Terrible quality, would not recommend", "ground_truth": "negative"},
 # ]
-# result = llmux.optimize_cost(
+# result = llmuxer.optimize_cost(
 #     baseline="gpt-4",
 #     examples=sentiment_examples,
 #     task="classification",
@@ -51,7 +51,7 @@ else:
 #     {"input": "Sarah Johnson will be joining us", "ground_truth": "Sarah Johnson"},
 #     {"input": "The meeting is at 3pm", "ground_truth": None},
 # ]
-# result = llmux.optimize_cost(
+# result = llmuxer.optimize_cost(
 #     baseline="gpt-4",
 #     examples=name_examples,
 #     task="extraction",
@@ -59,7 +59,7 @@ else:
 # )
 
 # # CSV support
-# result = llmux.optimize_cost(
+# result = llmuxer.optimize_cost(
 #     baseline="gpt-4",
 #     dataset="reviews.csv",
 #     task="classification",
@@ -67,7 +67,7 @@ else:
 # )
 
 # # HuggingFace dataset
-# result = llmux.optimize_cost(
+# result = llmuxer.optimize_cost(
 #     baseline="gpt-4",
 #     dataset="imdb:test[:100]",
 #     task="binary",
