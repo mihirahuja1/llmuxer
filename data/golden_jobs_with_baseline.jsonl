@@ -1,0 +1,57 @@
+
+{"input": "Senior Software Architect – Python/Rust\nCompany: Acme Robotics\nLocation: San Francisco, CA\nExperience: 7+ years\nStack: Python, Rust, Kubernetes", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Backend Engineer\nCompany: GreenFin Tech\nLocation: San Jose, CA\nExperience: 4–6 years\nStack: Java, Spring Boot, AWS", "LLM_Decision": 0, "Human_Input": 0}
+{"input": "Software Architect (Python)\nCompany: Orbit Analytics\nLocation: Remote (US-only)\nExperience: 6–8 years\nStack: Python, FastAPI, PostgreSQL", "LLM_Decision": 0, "Human_Input": 1}
+{"input": "Senior Rust Systems Engineer\nCompany: QuantumMesh\nLocation: San Francisco, CA\nExperience: 5+ years\nStack: Rust, C++, Linux drivers", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Principal Software Architect – Cloud\nCompany: SkyPipe\nLocation: Seattle, WA\nExperience: 10+ years\nStack: Go, Terraform, GCP", "LLM_Decision": 0, "Human_Input": 0}
+{"input": "Lead Software Architect\nCompany: BayEdge AI\nLocation: San Francisco, CA (Hybrid)\nExperience: 6+ years\nStack: Python, Rust, ML Ops", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Software Architect\nCompany: DataFlow Inc\nLocation: Oakland, CA\nExperience: 5+ years\nStack: Python, Rust, Docker", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Staff Software Engineer\nCompany: TechCorp\nLocation: San Francisco, CA\nExperience: 8+ years\nStack: Python, Rust, Kubernetes", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Senior Software Architect\nCompany: CloudNine\nLocation: Palo Alto, CA\nExperience: 7+ years\nStack: Python, TypeScript, AWS", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Principal Engineer - Python\nCompany: StartupXYZ\nLocation: Mountain View, CA\nExperience: 10+ years\nStack: Python, Django, PostgreSQL", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Software Architect (Rust)\nCompany: SystemsPlus\nLocation: San Francisco, CA\nExperience: 6+ years\nStack: Rust, WebAssembly, Linux", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Lead Backend Engineer\nCompany: FinTech Solutions\nLocation: New York, NY\nExperience: 7+ years\nStack: Java, Kotlin, Spring", "LLM_Decision": 0, "Human_Input": 0}
+{"input": "Software Architect - Cloud Native\nCompany: DevOps Masters\nLocation: San Francisco, CA (Remote OK)\nExperience: 8+ years\nStack: Python, Go, Kubernetes", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Senior Software Architect\nCompany: AI Innovations\nLocation: Berkeley, CA\nExperience: 6+ years\nStack: Python, Rust, TensorFlow", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Technical Architect\nCompany: Enterprise Corp\nLocation: San Francisco, CA\nExperience: 12+ years\nStack: Java, .NET, Oracle", "LLM_Decision": 0, "Human_Input": 0}
+{"input": "Software Architect (Full Stack)\nCompany: WebDev Pro\nLocation: San Mateo, CA\nExperience: 7+ years\nStack: JavaScript, Node.js, React", "LLM_Decision": 0, "Human_Input": 0}
+{"input": "Platform Architect\nCompany: CloudScale\nLocation: Redwood City, CA\nExperience: 9+ years\nStack: Python, Rust, Terraform", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Senior Architect - Distributed Systems\nCompany: BigData Inc\nLocation: San Francisco, CA\nExperience: 8+ years\nStack: Scala, Spark, Cassandra", "LLM_Decision": 0, "Human_Input": 0}
+{"input": "Software Architect\nCompany: MobileFirst\nLocation: Cupertino, CA\nExperience: 6+ years\nStack: Swift, Kotlin, React Native", "LLM_Decision": 0, "Human_Input": 0}
+{"input": "Lead Software Architect\nCompany: SecurityPro\nLocation: San Francisco, CA\nExperience: 10+ years\nStack: Python, Rust, Golang", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Principal Software Architect\nCompany: GameDev Studios\nLocation: Los Angeles, CA\nExperience: 8+ years\nStack: C++, Unreal Engine, DirectX", "LLM_Decision": 0, "Human_Input": 0}
+{"input": "Software Architect - Microservices\nCompany: APIFirst\nLocation: San Francisco, CA\nExperience: 7+ years\nStack: Python, Node.js, GraphQL", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Senior Software Engineer (Architecture)\nCompany: TechGiant\nLocation: Menlo Park, CA\nExperience: 6+ years\nStack: Python, Rust, Redis", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Software Architect\nCompany: DataPipeline Co\nLocation: San Francisco, CA\nExperience: 5+ years\nStack: Python, Apache Beam, BigQuery", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Solutions Architect\nCompany: ConsultingPlus\nLocation: San Francisco, CA\nExperience: 8+ years\nStack: AWS, Azure, Terraform", "LLM_Decision": 0, "Human_Input": 0}
+{"input": "Software Architect - ML Platform\nCompany: AI Startup\nLocation: South San Francisco, CA\nExperience: 7+ years\nStack: Python, PyTorch, Kubernetes", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Technical Lead - Architecture\nCompany: FinanceApp\nLocation: San Francisco, CA\nExperience: 9+ years\nStack: Python, Rust, PostgreSQL", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Software Architect (Remote)\nCompany: RemoteFirst Inc\nLocation: Anywhere (US timezone)\nExperience: 6+ years\nStack: Python, Rust, Docker", "LLM_Decision": 0, "Human_Input": 0}
+{"input": "Senior Platform Architect\nCompany: InfraCo\nLocation: San Jose, CA\nExperience: 10+ years\nStack: Golang, Kubernetes, Prometheus", "LLM_Decision": 0, "Human_Input": 0}
+{"input": "Software Architect - Blockchain\nCompany: CryptoTech\nLocation: San Francisco, CA\nExperience: 5+ years\nStack: Rust, Solidity, Web3", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Lead Architect - Data Platform\nCompany: Analytics Pro\nLocation: Sunnyvale, CA\nExperience: 8+ years\nStack: Python, Spark, Delta Lake", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Software Architect\nCompany: HealthTech Solutions\nLocation: San Francisco, CA\nExperience: 7+ years\nStack: Python, FastAPI, MongoDB", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Principal Software Architect\nCompany: AutoDrive\nLocation: Palo Alto, CA\nExperience: 10+ years\nStack: C++, Python, ROS", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Software Architect - IoT\nCompany: SmartDevices Inc\nLocation: San Francisco, CA\nExperience: 6+ years\nStack: Python, Rust, MQTT", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Senior Software Architect\nCompany: CloudDB\nLocation: Redwood Shores, CA\nExperience: 8+ years\nStack: Java, Scala, Kafka", "LLM_Decision": 0, "Human_Input": 0}
+{"input": "Software Architect (Security)\nCompany: CyberDefense\nLocation: San Francisco, CA\nExperience: 7+ years\nStack: Python, Rust, OpenSSL", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Technical Architect - Frontend\nCompany: UIExperts\nLocation: San Francisco, CA\nExperience: 6+ years\nStack: TypeScript, React, GraphQL", "LLM_Decision": 0, "Human_Input": 0}
+{"input": "Software Architect\nCompany: VideoStream Co\nLocation: San Bruno, CA\nExperience: 8+ years\nStack: Python, FFmpeg, CDN", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Lead Software Architect\nCompany: EcommercePro\nLocation: San Francisco, CA\nExperience: 9+ years\nStack: Python, Rust, Elasticsearch", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Software Architect - DevOps\nCompany: CI/CD Masters\nLocation: Foster City, CA\nExperience: 7+ years\nStack: Python, Jenkins, GitLab", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Senior Architect\nCompany: MessagingApp\nLocation: San Francisco, CA\nExperience: 8+ years\nStack: Erlang, Elixir, RabbitMQ", "LLM_Decision": 0, "Human_Input": 0}
+{"input": "Software Architect (API Design)\nCompany: APIGateway Inc\nLocation: San Francisco, CA\nExperience: 6+ years\nStack: Python, OpenAPI, Kong", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Principal Architect - Cloud\nCompany: MultiCloud Solutions\nLocation: San Mateo, CA\nExperience: 11+ years\nStack: Python, Terraform, Pulumi", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Software Architect\nCompany: RealTime Analytics\nLocation: San Francisco, CA\nExperience: 7+ years\nStack: Python, Apache Flink, ClickHouse", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Lead Software Architect\nCompany: SearchEngine Pro\nLocation: Mountain View, CA\nExperience: 9+ years\nStack: Java, Lucene, Elasticsearch", "LLM_Decision": 0, "Human_Input": 0}
+{"input": "Software Architect - Mobile\nCompany: AppDevelopers\nLocation: San Francisco, CA\nExperience: 6+ years\nStack: Flutter, React Native, Firebase", "LLM_Decision": 0, "Human_Input": 0}
+{"input": "Senior Software Architect\nCompany: DataWarehouse Co\nLocation: San Francisco, CA\nExperience: 8+ years\nStack: Python, Snowflake, dbt", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Software Architect (Platform)\nCompany: PaaS Provider\nLocation: San Francisco, CA\nExperience: 7+ years\nStack: Python, Rust, Cloud Foundry", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Technical Architect\nCompany: Integration Experts\nLocation: Burlingame, CA\nExperience: 8+ years\nStack: Python, Apache Camel, MuleSoft", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Software Architect - Observability\nCompany: Monitoring Inc\nLocation: San Francisco, CA\nExperience: 6+ years\nStack: Python, Prometheus, Grafana", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Lead Architect\nCompany: GraphDB Solutions\nLocation: San Francisco, CA\nExperience: 8+ years\nStack: Python, Neo4j, GraphQL", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Software Architect (Edge Computing)\nCompany: EdgeTech\nLocation: San Francisco, CA\nExperience: 7+ years\nStack: Rust, WebAssembly, K3s", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Senior Software Architect\nCompany: TimeSeries Data\nLocation: San Francisco, CA\nExperience: 8+ years\nStack: Python, InfluxDB, Grafana", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Software Architect - Compliance\nCompany: RegTech Solutions\nLocation: San Francisco, CA\nExperience: 9+ years\nStack: Python, SQL, Tableau", "LLM_Decision": 1, "Human_Input": 1}
+{"input": "Principal Software Architect\nCompany: Quantum Computing Lab\nLocation: San Francisco, CA\nExperience: 10+ years\nStack: Python, Qiskit, Julia", "LLM_Decision": 1, "Human_Input": 1}
+

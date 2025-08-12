@@ -1,10 +1,13 @@
 # LLMuxer
 
+<p align="center">
+  <img src="assets/muxerlogo.png" alt="LLMuxer Logo" width="400">
+</p>
+
 [![PyPI version](https://badge.fury.io/py/llmuxer.svg)](https://pypi.org/project/llmuxer/)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![CI Tests](https://github.com/mihirahuja1/llmuxer/workflows/CI/badge.svg)](https://github.com/mihirahuja1/llmuxer/actions)
-[![Coverage](https://codecov.io/gh/mihirahuja1/llmuxer/branch/main/graph/badge.svg)](https://codecov.io/gh/mihirahuja1/llmuxer)
 [![Downloads](https://pepy.tech/badge/llmuxer)](https://pepy.tech/project/llmuxer)
 [![GitHub Stars](https://img.shields.io/github/stars/mihirahuja1/llmuxer)](https://github.com/mihirahuja1/llmuxer/stargazers)
 
@@ -25,7 +28,7 @@ examples = [
 ]
 
 result = llmuxer.optimize_cost(
-    baseline="gpt-4",
+    baseline="gpt-4o-mini",
     prompt="Classify the sentiment of this text as positive, negative, or neutral.",
     examples=examples,
     task="classification",  # Currently only classification is supported
@@ -43,15 +46,15 @@ print(result)
     "model": "anthropic/claude-3-haiku",
     "accuracy": 0.92,
     "cost_per_million": 0.25,
-    "cost_savings": 0.975,  # 97.5% cheaper than GPT-4
-    "baseline_cost_per_million": 10.0,
+    "cost_savings": 0.80,  # 80% cheaper than baseline
+    "baseline_cost_per_million": 1.25,
     "tokens_evaluated": 1500
 }
 ```
 
 ## The Problem
 
-You're using GPT-4 for classification. It works well but costs $20/million tokens. Could GPT-3.5 do just as well for $0.50? What about Claude Haiku at $0.25? Or Llama-3.1 at $0.06?
+You're using an expensive model for classification. Could a cheaper model do just as well? What about Claude Haiku, Gemini Flash, or Llama models?
 
 **LLMuxer automatically tests your classification task across 18 models to find the cheapest one that maintains your required accuracy.**
 
@@ -94,6 +97,7 @@ export OPENROUTER_API_KEY="your-api-key-here"
 - **Fast testing** - Use `sample_size` to test on subset first  
 - **Simple API** - One function does everything  
 - **Classification only** - Support for extraction, generation, and binary tasks coming in v0.2
+- **Accuracy evaluation** - Uses case-insensitive exact match against provided options ([see evaluator](llmuxer/evaluator.py#L164))
 
 ## Benchmarks
 
@@ -101,38 +105,41 @@ export OPENROUTER_API_KEY="your-api-key-here"
 
 *Live pricing data from OpenRouter API (updated automatically):*
 
-| Provider | Models | Price Range ($/M tokens) |
-|----------|--------|--------------------------|
-| OpenAI | gpt-4o-mini, gpt-3.5-turbo | $0.75 - $2.00 |
-| Anthropic | claude-3-haiku | $1.50 |
-| DeepSeek | deepseek-chat | $0.90 |
-| Mistral | 3 models | $0.08 - $8.00 |
-| Meta | llama-3.1-8b-instruct, llama-3.1-70b-instruct | $0.04 - $0.38 |
+| Provider | Models Count |
+|----------|-------------|
+| OpenAI | 2 models (gpt-4o-mini, gpt-3.5-turbo) |
+| Anthropic | 2 models (claude-3-haiku, claude-3-sonnet) |
+| Google | 3 models (gemini-1.5-pro, gemini-1.5-flash, gemini-1.5-flash-8b) |
+| Qwen | 3 models (qwen-2.5-72b, qwen-2.5-14b, qwen-2.5-7b) |
+| DeepSeek | 3 models (deepseek-v2.5, deepseek-coder, deepseek-chat) |
+| Mistral | 3 models (mistral-large, mixtral-8x7b, mistral-7b) |
+| Meta | 2 models (llama-3.1-70b, llama-3.1-8b) |
 
-**Total: 9 models across 5 providers**
+**Total: 18 models across 7 providers**
+
+*See [Benchmarks](#benchmarks) for current pricing - prices vary by time and usage.*
 
 ### Reproduce Our Benchmarks
 
 ```bash
-# Test all 9 models on Banking77 dataset
+# Test all 18 models on Banking77 dataset (tested 2025-01-12)
 python scripts/prepare_banking77.py
-python examples/banking77_test.py
+python examples/classification_demo.py
 ```
 
 **Expected Results:** Most models achieve 85-92% accuracy on Banking77. Claude-3-haiku typically provides the best accuracy/cost ratio for classification tasks.
 
-### Performance Benchmarks
+### Example Cost Calculation
 
-**Fixed Dataset Results** *(50 job classification samples, tested 2025-08-10)*
+**Sample Dataset** *(50 job classification samples)*
 
-| Metric | Baseline (GPT-4o) | Best Model (Claude-3-haiku) | Savings |
-|--------|------------------|---------------------------|---------|
-| **Accuracy** | ~95% (assumed) | **92.0%** | Quality maintained |
-| **Cost/Million Tokens** | $12.50 | **$1.50** | **88.0% cheaper** |
-| **Cost/Request*** | $0.001875 | **$0.000225** | **$0.00165 saved** |
-| **Monthly (1K requests)** | $1.88 | **$0.23** | **$1.65 saved** |
+| Metric | Baseline Model | Optimized Model | Potential Savings |
+|--------|---------------|-----------------|------------------|
+| **Accuracy** | Baseline | 85%+ required | Quality threshold |
+| **Cost/Million Tokens** | Varies | Lower cost | See benchmarks |
+| **Tokens/Request** | ~150 (typical) | Same | Based on your data |
 
-*Conservative estimate: 150 tokens/request (100 input + 50 output)*
+*Actual costs depend on current OpenRouter pricing and your specific use case.*
 
 **[📊 Full Benchmark Report](docs/benchmarks.md)** | **[🔄 Reproduction Guide](#reproduction)**
 
@@ -187,7 +194,7 @@ import llmuxer
 
 # Using the Banking77 dataset (77 intent categories)
 result = llmuxer.optimize_cost(
-    baseline="gpt-4",
+    baseline="gpt-4o-mini",
     dataset="data/banking77.jsonl",  # Your prepared dataset
     task="classification",
     min_accuracy=0.8,
@@ -197,7 +204,7 @@ result = llmuxer.optimize_cost(
 if "error" in result:
     print(f"No model found: {result['error']}")
 else:
-    print(f"Switch from {baseline} to {result['model']}")
+    print(f"Switch from gpt-4o-mini to {result['model']}")
     print(f"Save {result['cost_savings']:.0%} on costs")
     print(f"Accuracy: {result['accuracy']:.1%}")
 ```
@@ -216,13 +223,11 @@ JSONL format with `input` and `label` fields:
 
 For a dataset with 1,000 samples:
 
-| Model Type | Time per 1k samples | Token Speed |
-|------------|-------------------|-------------|
-| GPT-3.5-turbo | ~45-60 seconds | ~2,000 tokens/sec |
-| Claude-3-haiku | ~30-45 seconds | ~2,500 tokens/sec |
-| Gemini-1.5-flash | ~20-30 seconds | ~3,000 tokens/sec |
-| Llama-3.1-8b | ~15-25 seconds | ~3,500 tokens/sec |
-| **Total for 18 models** | **~10-15 minutes** | Sequential |
+| Phase | Estimated Time |
+|-------|---------------|
+| Per model evaluation | ~30-60 seconds |
+| Smart stopping (skips failing families) | Saves 30-50% time |
+| **Total for 18 models** | **~10-15 minutes** |
 
 ### Speed Considerations
 

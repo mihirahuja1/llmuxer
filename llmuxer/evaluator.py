@@ -81,7 +81,7 @@ class Evaluator:
             item_result["LLM_Decision"] = prediction
 
             # Check accuracy against ground truth
-            ground_truth = item.get("Human_Input") or item.get("ground_truth")
+            ground_truth = item.get("Human_Input") or item.get("ground_truth") or item.get("label")
             if ground_truth is not None:
                 total_with_labels += 1
                 if self._evaluate_with_fuzzy_matching(
