@@ -3,12 +3,12 @@
 
 import llmuxer
 
-print("Finding cheaper model than gpt-4...")
+print("Finding cheaper model than gpt-4o-mini...")
 
 # Super simple - just baseline and dataset, everything else is auto-detected
 result = llmuxer.optimize_cost(
-    baseline="gpt-4", 
-    dataset="data/golden_jobs_with_baseline.jsonl",
+    baseline="gpt-4o-mini", 
+    dataset="../data/golden_jobs_with_baseline.jsonl",
     min_accuracy=0.7
 )
 
