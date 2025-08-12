@@ -33,9 +33,14 @@ result = llmuxer.optimize_cost(
 if 'error' in result:
     print(f"\nError: {result['error']}")
 else:
-    print(f"\n✅ Best model found: {result['model']}")
-    print(f"📊 Accuracy: {result['accuracy']:.1%}")
+    baseline_model = "gpt-4o-mini"
+    print(f"\nBest model found: {result['model']}")
+    print(f"Accuracy: {result['accuracy']:.1%}")
     
     if result.get('cost_savings'):
-        print(f"💰 Cost savings: {result['cost_savings']*100:.1f}%")
-        print(f"💵 Cost: ${result['cost_per_million']:.2f} per million tokens")
+        savings_pct = result['cost_savings'] * 100
+        print(f"You save {savings_pct:.1f}% by moving from {baseline_model} to {result['model']} with {result['accuracy']:.1%} accuracy")
+        print(f"New cost: ${result['cost_per_million']:.2f}/M tokens vs baseline cost")
+    else:
+        print(f"Cost: ${result.get('cost_per_million', 0):.2f} per million tokens")
+        print(f"Switch from {baseline_model} to {result['model']} for same/better accuracy")

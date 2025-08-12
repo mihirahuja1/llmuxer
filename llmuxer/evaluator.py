@@ -5,6 +5,7 @@ import time
 import threading
 from typing import List, Dict, Any, Tuple, Optional
 from difflib import get_close_matches
+from tqdm import tqdm
 from .provider import Provider
 
 
@@ -54,16 +55,16 @@ class Evaluator:
         total_with_labels = 0
         results = []
 
-        # Start spinner in background thread
-        self._stop_spinner = False
-        spinner_thread = threading.Thread(
-            target=self._spinner_animation,
-            args=(f"Processing {len(dataset)} items...",),
+        # Use tqdm progress bar instead of spinner
+        progress_bar = tqdm(
+            dataset, 
+            desc="Processing items", 
+            unit="item",
+            ncols=80,
+            bar_format="{desc}: {percentage:3.0f}%|{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}]"
         )
-        spinner_thread.daemon = True
-        spinner_thread.start()
 
-        for item in dataset:
+        for item in progress_bar:
             # Use the provided system prompt (already task-specific)
             full_prompt = f"{system_prompt}\n\n{item['input']}"
 
@@ -91,11 +92,8 @@ class Evaluator:
 
             results.append(item_result)
 
-        # Stop spinner
-        self._stop_spinner = True
-        if spinner_thread.is_alive():
-            spinner_thread.join(timeout=0.2)
-        print("\r   ", end="")  # Clear spinner line
+        # Close progress bar
+        progress_bar.close()
 
         # Calculate accuracy
         accuracy = correct / total_with_labels if total_with_labels > 0 else None

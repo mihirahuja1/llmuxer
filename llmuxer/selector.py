@@ -70,7 +70,7 @@ class Selector:
             if skip_model:
                 continue
 
-            print(f"  {short_name}: Testing... - Running")
+            print(f"  {short_name}: Testing...")
 
             try:
                 provider = get_provider(provider_name, **config_copy)
@@ -91,7 +91,7 @@ class Selector:
                 }
 
                 if accuracy is not None:
-                    print(f"     {short_name}: {accuracy:.1%} - Done ({elapsed:.1f}s)")
+                    print(f"  {short_name}: {accuracy:.1%} accuracy in {elapsed:.1f}s")
 
                     # Check if model failed threshold
                     if accuracy < min_accuracy:
@@ -104,16 +104,16 @@ class Selector:
                                 )
                                 break
                 else:
-                    print(f"     {short_name}: No labels - Done ({elapsed:.1f}s)")
+                    print(f"  {short_name}: No labels found in {elapsed:.1f}s")
 
             except Exception as e:
                 error_msg = str(e)
                 if "429" in error_msg:
-                    print(f"     {short_name}: Rate limited - Skipped")
+                    print(f"  {short_name}: Rate limited - Skipped")
                 elif "404" in error_msg:
-                    print(f"     {short_name}: Not found - Skipped")
+                    print(f"  {short_name}: Not found - Skipped")
                 else:
-                    print(f"     {short_name}: Error - Failed")
+                    print(f"  {short_name}: Error - {error_msg[:50]}...")
 
                 self.results[f"{provider_name}/{model_name}"] = {
                     "error": str(e),
